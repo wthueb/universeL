@@ -39,24 +39,6 @@ enum WeaponSound_t
 	NUM_SHOOT_SOUND_TYPES,
 };
 
-enum MoveType_t
-{
-	MOVETYPE_NONE = 0,
-	MOVETYPE_ISOMETRIC,
-	MOVETYPE_WALK,
-	MOVETYPE_STEP,
-	MOVETYPE_FLY,
-	MOVETYPE_FLYGRAVITY,
-	MOVETYPE_VPHYSICS,
-	MOVETYPE_PUSH,
-	MOVETYPE_NOCLIP,
-	MOVETYPE_LADDER,
-	MOVETYPE_OBSERVER,
-	MOVETYPE_CUSTOM,
-	MOVETYPE_LAST = MOVETYPE_CUSTOM,
-	MOVETYPE_MAX_BITS = 4
-};
-
 enum DataUpdateType_t
 {
 	DATA_UPDATE_CREATED = 0,
@@ -134,20 +116,20 @@ class bf_read;
 class IClientNetworkable
 {
 public:
-	virtual IClientUnknown*           GetIClientUnknown() = 0;
-	virtual void                      Release() = 0;
-	virtual ClientClass*              GetClientClass() = 0;
-	virtual void                      NotifyShouldTransmit(int state) = 0;
-	virtual void                      OnPreDataChanged(int updateType) = 0;
-	virtual void                      OnDataChanged(int updateType) = 0;
-	virtual void                      PreDataUpdate(int updateType) = 0;
-	virtual void                      PostDataUpdate(int updateType) = 0;
-	virtual void                      Unknown() = 0;
-	virtual bool                      IsDormant() = 0;
-	virtual int                       EntIndex() const = 0;
-	virtual void                      ReceiveMessage(int classID, bf_read &msg) = 0;
-	virtual void*                     GetDataTableBasePtr() = 0;
-	virtual void                      SetDestroyedOnRecreateEntities() = 0;
+	virtual IClientUnknown*            GetIClientUnknown() = 0;
+	virtual void                       Release() = 0;
+	virtual ClientClass*               GetClientClass() = 0;
+	virtual void                       NotifyShouldTransmit(int state) = 0;
+	virtual void                       OnPreDataChanged(int updateType) = 0;
+	virtual void                       OnDataChanged(int updateType) = 0;
+	virtual void                       PreDataUpdate(int updateType) = 0;
+	virtual void                       PostDataUpdate(int updateType) = 0;
+	virtual void                       Unknown() = 0;
+	virtual bool                       IsDormant() = 0;
+	virtual int                        EntIndex() const = 0;
+	virtual void                       ReceiveMessage(int classID, bf_read &msg) = 0;
+	virtual void*                      GetDataTableBasePtr() = 0;
+	virtual void                       SetDestroyedOnRecreateEntities() = 0;
 };
 
 class IClientUnknown;
@@ -157,11 +139,11 @@ typedef CClientThinkHandlePtr* ClientThinkHandle_t;
 class IClientThinkable
 {
 public:
-	virtual IClientUnknown*		        GetIClientUnknown() = 0;
-	virtual void				        ClientThink() = 0;
-	virtual ClientThinkHandle_t	        GetThinkHandle() = 0;
-	virtual void				        SetThinkHandle(ClientThinkHandle_t hThink) = 0;
-	virtual void				        Release() = 0;
+	virtual IClientUnknown*		       GetIClientUnknown() = 0;
+	virtual void				       ClientThink() = 0;
+	virtual ClientThinkHandle_t	       GetThinkHandle() = 0;
+	virtual void				       SetThinkHandle(ClientThinkHandle_t hThink) = 0;
+	virtual void				       Release() = 0;
 };
 
 class IClientAlphaProperty;

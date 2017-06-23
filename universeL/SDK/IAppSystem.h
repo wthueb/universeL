@@ -2,7 +2,6 @@
 
 #include "Definitions.h"
 
-
 class IAppSystem
 {
 public:

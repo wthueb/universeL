@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Definitions.h"
-#include "Vector.h"
-
-
 class IPanel;
 class C_BaseEntity;
+class Vector;
 
 enum class ClearFlags_t
 {
@@ -16,7 +13,6 @@ enum class ClearFlags_t
     VIEW_CLEAR_OBEY_STENCIL = 0x10,
     VIEW_CLEAR_STENCIL = 0x20,
 };
-
 
 enum class MotionBlurMode_t
 {

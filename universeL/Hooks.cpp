@@ -46,7 +46,7 @@ namespace Hooks
 		//AllocConsole();
 		AttachConsole(GetCurrentProcessId());
 		freopen("CON", "w", stdout);
-		SetConsoleTitleA(XorStr("universel debug"));
+		SetConsoleTitleA(XorStr("universeL debug"));
 
 		snprintf(name, sizeof(name), "universeL v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
@@ -66,16 +66,13 @@ namespace Hooks
 		pMatSurfaceHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::MatSurface()), true);
 
 		// find csgo window
-		while (!(hWindow = FindWindowA(XorStr("Valve001"), NULL)))
+		for (; !hWindow; hWindow = FindWindowA(XorStr("Valve001"), NULL))
 		{
 			Sleep(200);
 		}
 
 		// replace WndProc with our own to get user input
-		if (hWindow)
-		{
-			oWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWindow, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(hkWndProc)));
-		}
+		oWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWindow, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(hkWndProc)));
 
 		// hook IDirect3DDevice9::Reset
 		oReset = pD3DDevice9Hook->Hook(16, hkReset);

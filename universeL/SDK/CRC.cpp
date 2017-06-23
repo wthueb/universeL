@@ -1,23 +1,22 @@
 #include "CRC.h"
 
-#define BigShort( val )       WordSwap( val )
-#define BigWord( val )        WordSwap( val )
-#define BigLong( val )        DWordSwap( val )
-#define BigDWord( val )       DWordSwap( val )
-#define LittleShort( val )    ( val )
-#define LittleWord( val )     ( val )
-#define LittleLong( val )     ( val )
-#define LittleDWord( val )    ( val )
-#define SwapShort( val )      BigShort( val )
-#define SwapWord( val )       BigWord( val )
-#define SwapLong( val )       BigLong( val )
-#define SwapDWord( val )      BigDWord( val )
+#define BigShort(val)       WordSwap(val)
+#define BigWord(val)        WordSwap(val)
+#define BigLong(val)        DWordSwap(val)
+#define BigDWord(val)       DWordSwap(val)
+#define LittleShort(val)    (val)
+#define LittleWord(val)     (val)
+#define LittleLong(val)     (val)
+#define LittleDWord(val)    (val)
+#define SwapShort(val)      BigShort(val)
+#define SwapWord(val)       BigWord(val)
+#define SwapLong(val)       BigLong(val)
+#define SwapDWord(val)      BigDWord(val)
 
-#define CRC32_INIT_VALUE 0xFFFFFFFFUL
-#define CRC32_XOR_VALUE  0xFFFFFFFFUL
+#define CRC32_INIT_VALUE    0xFFFFFFFFUL
+#define CRC32_XOR_VALUE     0xFFFFFFFFUL
 
 #define NUM_BYTES 256
-
 
 static const CRC32_t pulCRCTable[NUM_BYTES] =
 {

@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Definitions.h"
-
-#include "Color.h"
 #include "IAppSystem.h"
 
-#define FORCEINLINE_CVAR inline
+#define FORCEINLINE_CVAR            inline
 
 #define FCVAR_NONE					0
 

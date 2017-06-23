@@ -2,34 +2,47 @@
 
 #include <Windows.h>
 
-#define MAXSTUDIOBONES 128
-#define BONE_USED_BY_HITBOX 0x100
+#define MAXSTUDIOBONES              128
+#define BONE_USED_BY_HITBOX         0x100
 
 #define MASK_ALL					(0xFFFFFFFF)
 
-
-typedef void*(*CreateInterfaceFn)(const char *pName, int *pReturnCode);
+typedef void*(*CreateInterfaceFn)(const char* pName, int* pReturnCode);
 typedef void*(*InstantiateInterfaceFn)();
 
 typedef unsigned int VPANEL;
+
 typedef void(*pfnDemoCustomDataCallback)(unsigned char *pData, size_t iSize);
 
-template<typename FuncType>
-inline FuncType CallVFunction(void* ppClass, DWORD index)
+template<typename T>
+inline T CallVFunction(void* ppClass, DWORD index)
 {
-    PDWORD pVTable = *(PDWORD*)ppClass;
+    DWORD* pVTable = *(DWORD**)ppClass;
     DWORD dwAddress = pVTable[index];
-    return reinterpret_cast<FuncType>(dwAddress);
+    return reinterpret_cast<T>(dwAddress);
 }
 
-enum class FontFeature
+enum EntityFlags
+{
+	FL_ONGROUND = (1 << 0),
+	FL_DUCKING = (1 << 1),
+	FL_WATERJUMP = (1 << 2),
+	FL_ONTRAIN = (1 << 3),
+	FL_INRAIN = (1 << 4),
+	FL_FROZEN = (1 << 5),
+	FL_ATCONTROLS = (1 << 6),
+	FL_CLIENT = (1 << 7),
+	FL_FAKECLIENT = (1 << 8)
+};
+
+enum FontFeature
 {
     FONT_FEATURE_ANTIALIASED_FONTS = 1,
     FONT_FEATURE_DROPSHADOW_FONTS = 2,
     FONT_FEATURE_OUTLINE_FONTS = 6,
 };
 
-enum class FontDrawType
+enum FontDrawType
 {
     FONT_DRAW_DEFAULT = 0,
     FONT_DRAW_NONADDITIVE,
@@ -37,37 +50,24 @@ enum class FontDrawType
     FONT_DRAW_TYPE_COUNT = 2,
 };
 
-enum class FontFlags
+enum FontFlags
 {
     FONTFLAG_NONE,
-    FONTFLAG_ITALIC = 0x001,
-    FONTFLAG_UNDERLINE = 0x002,
-    FONTFLAG_STRIKEOUT = 0x004,
-    FONTFLAG_SYMBOL = 0x008,
-    FONTFLAG_ANTIALIAS = 0x010,
-    FONTFLAG_GAUSSIANBLUR = 0x020,
-    FONTFLAG_ROTARY = 0x040,
-    FONTFLAG_DROPSHADOW = 0x080,
-    FONTFLAG_ADDITIVE = 0x100,
-    FONTFLAG_OUTLINE = 0x200,
-    FONTFLAG_CUSTOM = 0x400,
-    FONTFLAG_BITMAP = 0x800,
+    FONTFLAG_ITALIC = (1 << 0),
+    FONTFLAG_UNDERLINE = (1 << 1),
+    FONTFLAG_STRIKEOUT = (1 << 2),
+    FONTFLAG_SYMBOL = (1 << 3),
+    FONTFLAG_ANTIALIAS = (1 << 4),
+    FONTFLAG_GAUSSIANBLUR = (1 << 5),
+    FONTFLAG_ROTARY = (1 << 6),
+    FONTFLAG_DROPSHADOW = (1 << 7),
+    FONTFLAG_ADDITIVE = (1 << 8),
+    FONTFLAG_OUTLINE = (1 << 9),
+    FONTFLAG_CUSTOM = (1 << 10),
+    FONTFLAG_BITMAP = (1 << 11),
 };
 
-enum class EntityFlags
-{
-    FL_ONGROUND = (1 << 0),
-    FL_DUCKING = (1 << 1),
-    FL_WATERJUMP = (1 << 2),
-    FL_ONTRAIN = (1 << 3),
-    FL_INRAIN = (1 << 4),
-    FL_FROZEN = (1 << 5),
-    FL_ATCONTROLS = (1 << 6),
-    FL_CLIENT = (1 << 7),
-    FL_FAKECLIENT = (1 << 8)
-};
-
-enum class ClientFrameStage_t
+enum ClientFrameStage_t
 {
     FRAME_UNDEFINED = -1,
     FRAME_START,
@@ -79,11 +79,11 @@ enum class ClientFrameStage_t
     FRAME_RENDER_END
 };
 
-enum class LifeState
+enum LifeState
 {
-    LIFE_ALIVE = 0,// alive
-    LIFE_DYING = 1, // playing death animation or still falling off of a ledge waiting to hit ground
-    LIFE_DEAD = 2 // dead. lying still.
+    LIFE_ALIVE = 0,   // alive
+    LIFE_DYING,       // playing death animation or still falling off of a ledge waiting to hit ground
+    LIFE_DEAD         // dead, lying still
 };
 
 enum EItemDefinitionIndex
@@ -143,7 +143,7 @@ enum EItemDefinitionIndex
     weapon_knife_push = 516
 };
 
-enum class CSWeaponType : int
+enum CSWeaponType
 {
 	WEAPONTYPE_KNIFE = 0,
 	WEAPONTYPE_PISTOL,
@@ -414,6 +414,24 @@ enum EClassIds
 	SporeTrail = 252
 };
 
+enum MoveType_t
+{
+	MOVETYPE_NONE = 0,
+	MOVETYPE_ISOMETRIC,
+	MOVETYPE_WALK,
+	MOVETYPE_STEP,
+	MOVETYPE_FLY,
+	MOVETYPE_FLYGRAVITY,
+	MOVETYPE_VPHYSICS,
+	MOVETYPE_PUSH,
+	MOVETYPE_NOCLIP,
+	MOVETYPE_LADDER,
+	MOVETYPE_OBSERVER,
+	MOVETYPE_CUSTOM,
+	MOVETYPE_LAST = MOVETYPE_CUSTOM,
+	MOVETYPE_MAX_BITS = 4
+};
+
 enum ECSPlayerBones
 {
     pelvis = 0,
@@ -429,10 +447,10 @@ enum ECSPlayerBones
     hand_L
 };
 
-enum class Bone : int
+enum Bone
 {
 	INVALID = -1,
-	BONE_PELVIS = 0,
+	BONE_PELVIS,
 	LEAN_ROOT,
 	CAM_DRIVER,
 	BONE_HIP,
@@ -443,7 +461,7 @@ enum class Bone : int
 	BONE_HEAD,
 };
 
-enum class HitGroups : int
+enum HitGroups
 {
 	HITGROUP_GENERIC = 0,
 	HITGROUP_HEAD,
@@ -456,21 +474,21 @@ enum class HitGroups : int
 	HITGROUP_GEAR
 };
 
-enum class TeamID : int
+enum TeamID
 {
-	TEAM_UNASSIGNED,
+	TEAM_UNASSIGNED = 0,
 	TEAM_SPECTATOR,
 	TEAM_TERRORIST,
 	TEAM_COUNTER_TERRORIST,
 };
 
-enum class ObserverMode_t : int
+enum ObserverMode_t
 {
 	OBS_MODE_NONE = 0,
-	OBS_MODE_DEATHCAM = 1,
-	OBS_MODE_FREEZECAM = 2,
-	OBS_MODE_FIXED = 3,
-	OBS_MODE_IN_EYE = 4,
-	OBS_MODE_CHASE = 5,
-	OBS_MODE_ROAMING = 6
+	OBS_MODE_DEATHCAM,
+	OBS_MODE_FREEZECAM,
+	OBS_MODE_FIXED,
+	OBS_MODE_IN_EYE,
+	OBS_MODE_CHASE,
+	OBS_MODE_ROAMING
 };

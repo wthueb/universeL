@@ -1,8 +1,5 @@
 #pragma once
 
-#include "Definitions.h"
-
-
 class CGlobalVarsBase
 {
 public:
