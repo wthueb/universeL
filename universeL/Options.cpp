@@ -1,0 +1,71 @@
+#include "Options.h"
+
+namespace Options
+{
+	void Unload()
+	{
+		Options::Aim::bAimbotEnabled = false;
+		Options::Aim::bRCSEnabled = false;
+
+		Options::ESP::bGlowEnabled = false;
+		Options::ESP::bDrawEnabled = false;
+
+		Options::Misc::bBhopEnabled = false;
+		Options::Misc::bShowRanks = false;
+		Options::Misc::bAutoAccept = false;
+	}
+
+	// all vars here must be declared in Options.h and *should* be implemented in the gui
+
+	bool bMainWindowOpen = false;
+
+	namespace Aim
+	{
+		bool bAimbotEnabled = false;
+		bool bRCSEnabled = false;
+		
+		float flFov = 1.5f;
+		bool bSmooth = true;
+		float flSmooth = 2.f;
+
+		bool bSilent = false;
+
+		bool bOnShoot = true;
+		bool bOnAimkey = true;
+		int nAimkey = ButtonCode_t::MOUSE_4;
+
+		int nBone = static_cast<int>(Bone::BONE_NECK);
+
+		bool bFriendlyFire = false;
+	}
+
+	namespace ESP
+	{
+		bool bGlowEnabled = false;
+		
+		bool bDrawEnabled = false;
+		bool bCornerBoxes = false;
+
+		bool bDrawPlayers = false;
+		bool bDrawPlayerBox = false;
+		bool bDrawSkeleton = false;
+		bool bOnlyEnemies = false;
+
+		bool bShowName = false;
+		bool bShowHealth = false;
+		bool bShowHealthText = false;
+
+		bool bDrawBomb = false;
+		bool bDrawNades = false;
+
+		float fAllyColor[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
+		float fEnemyColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
+	}
+	
+	namespace Misc
+	{
+		bool bBhopEnabled = false;
+		bool bShowRanks = false;
+		bool bAutoAccept = false;
+	}
+}
