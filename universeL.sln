@@ -7,7 +7,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "universeL", "UniverseL\Univ
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "infuse", "infuse\infuse.vcxproj", "{71C12505-EEB0-4D91-BBD7-0287B5428395}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35F65D96-B9A2-419B-BFED-B348E3399568}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{35F65D96-B9A2-419B-BFED-B348E3399568}"
 	ProjectSection(SolutionItems) = preProject
 		.gitattributes = .gitattributes
 		.gitignore = .gitignore

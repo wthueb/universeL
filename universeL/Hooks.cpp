@@ -51,7 +51,10 @@ namespace Hooks
 		snprintf(name, sizeof(name), "universeL v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
 		NetvarManager::Instance()->CreateDatabase();
+
+#ifdef _DEBUG
 		NetvarManager::Instance()->Dump(XorStr("netvars.txt"));
+#endif
 
 		// find d3d9 device
 		uint32_t dwDevice = **reinterpret_cast<uint32_t**>(Utils::FindSignature(XorStr("shaderapidx9.dll"), XorStr("A1 ? ? ? ? 50 8B 08 FF 51 0C")) + 1);
