@@ -39,7 +39,7 @@ namespace Hooks
 	bool                                vecPressedKeys[256] = {};
 	bool                                bWasInitialized = false;
 
-	char                                name[50];
+	char                                name[32];
 
 	void Init()
 	{
@@ -48,7 +48,7 @@ namespace Hooks
 		freopen("CON", "w", stdout);
 		SetConsoleTitleA(XorStr("universel debug"));
 
-		sprintf(name, "universeL v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+		snprintf(name, sizeof(name), "universeL v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
 		NetvarManager::Instance()->CreateDatabase();
 		NetvarManager::Instance()->Dump(XorStr("netvars.txt"));
