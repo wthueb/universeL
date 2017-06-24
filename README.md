@@ -4,7 +4,9 @@ made by wi1
 
 ### btc: 1Ka3urajw5bCfFVzgSgHaRLsYWBdC6mGnj ###
 
-infuse is just a simple LoadLibraryA injector that i use. you can inject it with anything
+infuse is just a simple LoadLibraryA injector that i made. you can inject it with anything
+
+gui key is insert, if you press delete it will uninject and disable all settings
 
 ## features ##
 
