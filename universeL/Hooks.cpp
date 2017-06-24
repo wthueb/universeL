@@ -13,8 +13,8 @@
 #include "ImGui\imgui_impl_dx9.h"
 
 #define VERSION_MAJOR 0
-#define VERSION_MINOR 9
-#define VERSION_PATCH 1
+#define VERSION_MINOR 10
+#define VERSION_PATCH 0
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -228,6 +228,10 @@ namespace Hooks
 					ImGui::Separator();
 					ImGui::InputInt(XorStr("bone"), &Options::Aim::nBone);
 					ImGui::Text(XorStr("%s"), XorStr("8 is head, 7 is neck, 6 is upper chest..."));
+					ImGui::Separator();
+					ImGui::Checkbox(XorStr("visible check"), &Options::Aim::bVisibleCheck);
+					ImGui::Separator();
+					ImGui::Checkbox(XorStr("lock on teammates"), &Options::Aim::bLockOnFriendly);
 				}
 
 				if (ImGui::CollapsingHeader(XorStr("visuals")))

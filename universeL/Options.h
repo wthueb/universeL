@@ -29,7 +29,9 @@ namespace Options
 
 		extern int nBone;
 
-		extern bool bFriendlyFire;
+		extern bool bVisibleCheck;
+
+		extern bool bLockOnFriendly;
 	}
 
 	namespace ESP

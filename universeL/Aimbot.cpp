@@ -15,6 +15,7 @@ void CorrectAim();
 void RCS();
 
 // helper functions
+bool IsVisible(C_BasePlayer* player);
 bool IsValidPlayer(C_BasePlayer* player);
 void ClampAngle(QAngle& angle);
 float GetFov(const QAngle& viewAngle, const QAngle& aimAngle);
@@ -141,8 +142,8 @@ void CorrectAim()
 	if (!IsValidPlayer(player))
 		return;
 
-	Vector targetpos = player->GetBonePosition(Options::Aim::nBone);
 	Vector eyepos = localplayer->GetEyePosition();
+	Vector targetpos = player->GetBonePosition(Options::Aim::nBone);
 	Vector relative = eyepos - targetpos;
 
 	QAngle dst;
@@ -170,6 +171,23 @@ void CorrectAim()
 		cmd->viewangles = dst;
 }
 
+bool IsVisible(C_BasePlayer* player)
+{
+	Vector start = localplayer->GetEyePosition();
+	Vector end = player->GetBonePosition(Options::Aim::nBone);
+
+	Ray_t ray;
+	ray.Init(start, end);
+
+	CTraceFilter filter;
+	filter.pSkip = localplayer;
+
+	trace_t tr;
+	Interfaces::EngineTrace()->TraceRay(ray, MASK_SHOT_HULL | CONTENTS_HITBOX, &filter, &tr);
+
+	return tr.m_pEnt == player || tr.fraction > .99f;
+}
+
 bool IsValidPlayer(C_BasePlayer* player)
 {
 	if (!player)
@@ -187,7 +205,12 @@ bool IsValidPlayer(C_BasePlayer* player)
 	if (player->IsDormant())
 		return false;
 
-	if (player->GetTeam() == localplayer->GetTeam() && !Options::Aim::bFriendlyFire)
+	if (!Options::Aim::bLockOnFriendly &&
+		player->GetTeam() == localplayer->GetTeam())
+		return false;
+
+	if (Options::Aim::bVisibleCheck &&
+		!IsVisible(player))
 		return false;
 
 	return true;

@@ -36,7 +36,9 @@ namespace Options
 
 		int nBone = static_cast<int>(Bone::BONE_NECK);
 
-		bool bFriendlyFire = false;
+		bool bVisibleCheck = true;
+
+		bool bLockOnFriendly = false;
 	}
 
 	namespace ESP

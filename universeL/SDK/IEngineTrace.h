@@ -64,9 +64,6 @@
 #define   SURF_NOCHOP                   (1 << 14)
 #define   SURF_HITBOX                   (1 << 15)
 
-// -----------------------------------------------------
-// spatial content masks - used for spatial queries (traceline,etc.)
-// -----------------------------------------------------
 #define   MASK_ALL                      (0xFFFFFFFF)
 #define   MASK_SOLID                    (CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_WINDOW | CONTENTS_MONSTER | CONTENTS_GRATE)
 #define   MASK_PLAYERSOLID              (CONTENTS_SOLID | CONTENTS_MOVEABLE | CONTENTS_PLAYERCLIP | CONTENTS_WINDOW | CONTENTS_MONSTER | CONTENTS_GRATE)
@@ -116,7 +113,7 @@ enum TraceType
 class ITraceFilter
 {
 public:
-	virtual bool ShouldHitEntity(IHandleEntity *pEntity, int contentsMask) = 0;
+	virtual bool ShouldHitEntity(IHandleEntity* pEntity, int contentsMask) = 0;
 	virtual TraceType GetTraceType() const = 0;
 };
 
