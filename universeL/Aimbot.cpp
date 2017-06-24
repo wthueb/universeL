@@ -8,13 +8,11 @@
 #define RAD2DEG(x)    (static_cast<float>(x) * static_cast<float>(180.f / M_PI))
 #define DEG2RAD(x)    (static_cast<float>(x) * static_cast<float>(M_PI / 180.f))
 
-// function prototypes
 void FindTarget();
 void DropTarget();
 void CorrectAim();
 void RCS();
 
-// helper functions
 bool IsVisible(C_BasePlayer* player);
 bool IsValidPlayer(C_BasePlayer* player);
 void ClampAngle(QAngle& angle);
@@ -55,7 +53,6 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 		if (besttarget == -1)
 			FindTarget();
 		
-		// always lock on aimkey
 		if (Options::Aim::bOnAimkey && Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey)))
 			shouldcorrect = true;
 
@@ -68,7 +65,6 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 			FindTarget();
 	}
 
-	// FIXMEW: add smoothing & remove rcs from awp, pistols, shotguns, etc
 	if (Options::Aim::bRCSEnabled && !shouldcorrect &&
 		!activeweapon->IsPistol() && !activeweapon->IsShotgun() &&
 		!activeweapon->IsSniper())
@@ -113,7 +109,6 @@ void FindTarget()
 		Vector eyepos = localplayer->GetEyePosition();
 		Vector relative = eyepos - targetpos;
 
-		// yaw is x, pitch is y
 		QAngle angle;
 		VectorAngles(relative, angle);
 
@@ -242,11 +237,13 @@ void VectorAngles(const Vector& forward, QAngle &angles)
 	if (forward[1] == 0.0f && forward[0] == 0.0f)
 	{
 		angles[0] = (forward[2] > 0.0f) ? 270.0f : 90.0f; // pitch
-		angles[1] = 0.0f;  // yaw
+		angles[1] = 0.0f; // yaw
 	}
 	else
 	{
+		// pitch
 		angles[0] = static_cast<vec_t>(atan2(-forward[2], forward.Length2D()) * -180 / M_PI);
+		// yaw
 		angles[1] = static_cast<vec_t>(atan2(forward[1], forward[0]) * 180 / M_PI);
 
 		if (angles[1] > 90)

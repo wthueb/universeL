@@ -33,8 +33,8 @@ namespace Hooks
 	PaintTraverseFn                     oPaintTraverse = nullptr;
 	PlaySoundFn                         oPlaySound = nullptr;
 
-	WNDPROC                             oWndProc = nullptr; // old WndProc pointer
-	HWND                                hWindow = nullptr; // handle to the csgo window
+	WNDPROC                             oWndProc = nullptr;
+	HWND                                hWindow = nullptr;
 
 	bool                                vecPressedKeys[256] = {};
 	bool                                bWasInitialized = false;
@@ -56,33 +56,22 @@ namespace Hooks
 		NetvarManager::Instance()->Dump(XorStr("netvars.txt"));
 #endif
 
-		// find d3d9 device
 		uint32_t dwDevice = **reinterpret_cast<uint32_t**>(Utils::FindSignature(XorStr("shaderapidx9.dll"), XorStr("A1 ? ? ? ? 50 8B 08 FF 51 0C")) + 1);
 
-		// create vtable hooks
 		pD3DDevice9Hook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(dwDevice), true);
 		pClientModeHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::ClientMode()), true);
 		pVGUIPanelHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::VGUIPanel()), true);
 		pMatSurfaceHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::MatSurface()), true);
 
-		// find csgo window
 		for (; !hWindow; hWindow = FindWindowA(XorStr("Valve001"), NULL))
-		{
 			Sleep(200);
-		}
 
-		// replace WndProc with our own to get user input
 		oWndProc = reinterpret_cast<WNDPROC>(SetWindowLongPtr(hWindow, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(hkWndProc)));
 
-		// hook IDirect3DDevice9::Reset
 		oReset = pD3DDevice9Hook->Hook(16, hkReset);
-		// hook IDirect3DDevice9::EndScene
 		oEndScene = pD3DDevice9Hook->Hook(42, hkEndScene);
-		// hook IClientMode::CreateMove
 		oCreateMove = pClientModeHook->Hook(24, reinterpret_cast<CreateMoveFn>(hkCreateMove));
-		// hook IPanel::PaintTraverse
 		oPaintTraverse = pVGUIPanelHook->Hook(41, reinterpret_cast<PaintTraverseFn>(hkPaintTraverse));
-		// hook ISurface::PlaySound
 		oPlaySound = pMatSurfaceHook->Hook(82, reinterpret_cast<PlaySoundFn>(hkPlaySound));
 
 		Fonts::Init();
@@ -90,13 +79,10 @@ namespace Hooks
 
 	void Restore()
 	{
-		// restore WndProc
 		SetWindowLongPtr(hWindow, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(oWndProc));
 
-		// destroy renderer
 		pRenderer->InvalidateObjects();
 
-		// remove hooks
 		pD3DDevice9Hook->RestoreTable();
 		pClientModeHook->RestoreTable();
 		pVGUIPanelHook->RestoreTable();
@@ -105,7 +91,6 @@ namespace Hooks
 
 	void GUI_Init(IDirect3DDevice9* pDevice)
 	{
-		// init the gui and the renderer
 		ImGui_ImplDX9_Init(hWindow, pDevice);
 
 		pRenderer = std::make_unique<DrawManager>(pDevice);
@@ -116,7 +101,6 @@ namespace Hooks
 
 	LRESULT __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		// captures key states. mouse only
 		// FIXMEW: use IInputSystem to detect key presses
 		switch (uMsg)
 		{
@@ -148,12 +132,10 @@ namespace Hooks
 			break;
 		}
 
-		// insert toggles the menu
 		static bool isDown = false;
 		static bool isClicked = false;
 
-		// detects if insert is pressed and then released
-		// no easier way to do it (?)
+		// insert toggles the menu
 		if (vecPressedKeys[VK_INSERT])
 		{
 			isClicked = false;
@@ -174,25 +156,20 @@ namespace Hooks
 		{
 			Options::bMainWindowOpen = !Options::bMainWindowOpen;
 			
-			// cl_mouseenable to turn mouse on/off in game when menu is closed/open
+			// disable in-game mouse when in menu
 			static ConVar* cl_mouseenable = Interfaces::CVar()->FindVar(XorStr("cl_mouseenable"));
 			cl_mouseenable->SetValue(!Options::bMainWindowOpen);
 		}
 
-		// processes user input with ImGui_ImplDX9_WndProcHandler
-		if (bWasInitialized && Options::bMainWindowOpen && ImGui_ImplDX9_WndProcHandler(hWnd, uMsg, wParam, lParam))
-		{
-			// input was taken and used, return
-			return true;
-		}
+		if (bWasInitialized && Options::bMainWindowOpen &&
+			ImGui_ImplDX9_WndProcHandler(hWnd, uMsg, wParam, lParam))
+			return true; // input was taken and used, return
 
-		// input was not taken, call original to pass input to the game
 		return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
 	}
 
 	HRESULT __stdcall hkEndScene(IDirect3DDevice9* pDevice)
 	{
-		// call original EndScene
 		HRESULT ret = oEndScene(pDevice);
 
 		if (!bWasInitialized)
@@ -270,9 +247,7 @@ namespace Hooks
 			}
 
 			pRenderer->BeginRendering();
-
 			ImGui::Render();
-
 			pRenderer->EndRendering();
 		}
 
@@ -284,20 +259,14 @@ namespace Hooks
 		// IDirect3DDevice9::Reset is called when you minimize the game, alt-tab, or change resolutions
 		// have to recreate resources or else you crash
 		
-		// call original reset
 		HRESULT hR = oReset(pDevice, pPresentationParameters);
 		
 		if (!bWasInitialized)
-		{
 			return oReset(pDevice, pPresentationParameters);
-		}
 
-		// invalidate resources
-		ImGui_ImplDX9_InvalidateDeviceObjects();
 		pRenderer->InvalidateObjects();
-
+		ImGui_ImplDX9_InvalidateDeviceObjects();
 		
-		// re-allocate resources
 		pRenderer->CreateObjects();
 		ImGui_ImplDX9_CreateDeviceObjects();
 
@@ -323,7 +292,6 @@ namespace Hooks
 	
 	void __fastcall hkPaintTraverse(void* thisptr, void*, VPANEL vguiPanel, bool forceRepaint, bool allowForce)
 	{
-		// call original PaintTraverse
 		oPaintTraverse(thisptr, vguiPanel, forceRepaint, allowForce);
 
 		// only draw on FocusOverlayPanel
@@ -338,12 +306,11 @@ namespace Hooks
 			return;
 
 		ESP::Draw();
-		ESP::Glow(); // FIXMEW: move to DrawModelExecute hook to avoid flashing
+		ESP::Glow(); // FIXMEW: move to [somewhere] to avoid flashing
 	}
 
 	void __stdcall hkPlaySound(const char* szFileName)
 	{
-		// call original PlaySound
 		oPlaySound(Interfaces::MatSurface(), szFileName);
 		
 		AutoAccept::PlaySound(szFileName);
