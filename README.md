@@ -1,16 +1,14 @@
-# universeL #
+<p align="center"># universeL #
 
 made by wi1
-
-### btc: 1Ka3urajw5bCfFVzgSgHaRLsYWBdC6mGnj ###
+btc: 1Ka3urajw5bCfFVzgSgHaRLsYWBdC6mGnj
 
 infuse is just a simple LoadLibraryA injector that i made. you can inject it with anything
-
-gui key is insert, if you press delete it will uninject and disable all settings
 
 ## features ##
 
 _all features can be toggled and customized via an in-game menu by pressing insert_
+_press delete to uninject_
 
 * fully customizable aimbot
     * fov slider
@@ -36,4 +34,4 @@ _all features can be toggled and customized via an in-game menu by pressing inse
 * markhc
 * namazso
 * aixxe
-* and the rest of uc <3
+* and the rest of uc <3</p>
