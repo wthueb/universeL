@@ -5,8 +5,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#define RAD2DEG( x )  ( static_cast<float>(x) * static_cast<float>(180.f / M_PI) )
-#define DEG2RAD( x )  ( static_cast<float>(x) * static_cast<float>(M_PI / 180.f) )
+#define RAD2DEG(x)    (static_cast<float>(x) * static_cast<float>(180.f / M_PI))
+#define DEG2RAD(x)    (static_cast<float>(x) * static_cast<float>(M_PI / 180.f))
 
 // function prototypes
 void FindTarget();
@@ -47,29 +47,30 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 	if (activeweapon->IsKnife() || activeweapon->IsNade() || activeweapon->IsBomb())
 		return;
 
+	bool shouldcorrect = false;
+
 	if (Options::Aim::bAimbotEnabled)
 	{
 		if (besttarget == -1)
 			FindTarget();
-
-		bool shouldaim = false;
 		
 		// always lock on aimkey
 		if (Options::Aim::bOnAimkey && Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey)))
-			shouldaim = true;
+			shouldcorrect = true;
 
 		if (Options::Aim::bOnShoot && cmd->buttons & IN_ATTACK)
-			shouldaim = true;
+			shouldcorrect = true;
 
-		if (shouldaim)
+		if (shouldcorrect)
 			CorrectAim();
 		else
 			FindTarget();
 	}
 
 	// FIXMEW: add smoothing & remove rcs from awp, pistols, shotguns, etc
-	if (Options::Aim::bRCSEnabled && !activeweapon->IsPistol() &&
-		!activeweapon->IsShotgun() && !activeweapon->IsSniper())
+	if (Options::Aim::bRCSEnabled && !shouldcorrect &&
+		!activeweapon->IsPistol() && !activeweapon->IsShotgun() &&
+		!activeweapon->IsSniper())
 		RCS();
 
 	if (!Options::Aim::bSilent)
@@ -164,6 +165,7 @@ void CorrectAim()
 	}
 
 	ClampAngle(dst);
+
 	if (dst != cmd->viewangles)
 		cmd->viewangles = dst;
 }
