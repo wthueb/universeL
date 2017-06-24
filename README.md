@@ -12,6 +12,11 @@ gui key is insert, if you press delete it will uninject and disable all settings
 
 _all features can be toggled and customized via an in-game menu by pressing insert_
 
+* fully customizable aimbot
+    * fov slider
+	* smooth slider
+	* bone selection
+	* visible check
 * glow esp
     * color picker
 	* includes chickens :D
@@ -21,12 +26,8 @@ _all features can be toggled and customized via an in-game menu by pressing inse
 	* name
 	* health bar/text
 	* color picker
-* fully customizable aimbot
-    * fov slider
-	* smooth slider
-	* bone selection
 * rcs
-* bhop script
+* bhop
 * show ranks on scoreboard
 * auto accept queues
 
