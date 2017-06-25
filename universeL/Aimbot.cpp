@@ -31,6 +31,8 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 	if (!Interfaces::Engine()->IsInGame() || !Options::Aim::bAimbotEnabled && !Options::Aim::bRCSEnabled)
 		return;
 	
+	DropTarget();
+
 	localplayer = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(Interfaces::Engine()->GetLocalPlayer()));
 	if (!localplayer)
 		return;
@@ -40,9 +42,7 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 		return;
 
 	cmd = pCmd;
-
-	DropTarget();
-
+	
 	if (activeweapon->IsKnife() || activeweapon->IsNade() || activeweapon->IsBomb())
 		return;
 
@@ -50,19 +50,24 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 
 	if (Options::Aim::bAimbotEnabled)
 	{
-		if (besttarget == -1)
-			FindTarget();
-		
-		if (Options::Aim::bOnAimkey && Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey)))
-			shouldcorrect = true;
+		static bool found = false;
 
-		if (Options::Aim::bOnShoot && cmd->buttons & IN_ATTACK)
+		if ((Options::Aim::bOnShoot && cmd->buttons & IN_ATTACK) ||
+			(Options::Aim::bOnAimkey && Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey))))
+		{
+			if (!found)
+			{
+				FindTarget();
+				found = true;
+			}
+
 			shouldcorrect = true;
+		}
+		else
+			found = false;
 
 		if (shouldcorrect)
 			CorrectAim();
-		else
-			FindTarget();
 	}
 
 	if (Options::Aim::bRCSEnabled && !shouldcorrect &&
@@ -100,14 +105,22 @@ void FindTarget()
 
 	for (auto i = 1; i <= Interfaces::GlobalVars()->maxClients; ++i)
 	{
-		auto player = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(i));
+		auto potential = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(i));
 
-		if (!IsValidPlayer(player))
+		if (!IsValidPlayer(potential))
 			continue;
 
-		Vector targetpos = player->GetBonePosition(Options::Aim::nBone);
+		if (!Options::Aim::bLockOnFriendly &&
+			potential->GetTeam() == localplayer->GetTeam())
+			continue;
+
+		if (Options::Aim::bVisibleCheck &&
+			!IsVisible(potential))
+			continue;
+
+		Vector potentialpos = potential->GetBonePosition(Options::Aim::nBone);
 		Vector eyepos = localplayer->GetEyePosition();
-		Vector relative = eyepos - targetpos;
+		Vector relative = eyepos - potentialpos;
 
 		QAngle angle;
 		VectorAngles(relative, angle);
@@ -124,21 +137,32 @@ void FindTarget()
 
 void DropTarget()
 {
-	auto player = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(besttarget));
+	auto target = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(besttarget));
 
-	if (!IsValidPlayer(player))
+	if (!IsValidPlayer(target))
+		besttarget = -1;
+
+	if (!Options::Aim::bLockOnFriendly &&
+		target->GetTeam() == localplayer->GetTeam())
 		besttarget = -1;
 }
 
 void CorrectAim()
 {
-	auto player = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(besttarget));
+	if (besttarget == -1)
+		return;
 
-	if (!IsValidPlayer(player))
+	auto target = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(besttarget));
+
+	if (!IsValidPlayer(target))
+		return;
+	
+	if (Options::Aim::bVisibleCheck &&
+		!IsVisible(target))
 		return;
 
 	Vector eyepos = localplayer->GetEyePosition();
-	Vector targetpos = player->GetBonePosition(Options::Aim::nBone);
+	Vector targetpos = target->GetBonePosition(Options::Aim::nBone);
 	Vector relative = eyepos - targetpos;
 
 	QAngle dst;
@@ -198,14 +222,6 @@ bool IsValidPlayer(C_BasePlayer* player)
 		return false;
 
 	if (player->IsDormant())
-		return false;
-
-	if (!Options::Aim::bLockOnFriendly &&
-		player->GetTeam() == localplayer->GetTeam())
-		return false;
-
-	if (Options::Aim::bVisibleCheck &&
-		!IsVisible(player))
 		return false;
 
 	return true;
