@@ -137,6 +137,9 @@ void FindTarget()
 
 void DropTarget()
 {
+	if (besttarget == -1)
+		return;
+
 	auto target = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(besttarget));
 
 	if (!IsValidPlayer(target))
@@ -283,8 +286,8 @@ void AngleVectors(const QAngle& angles, Vector* forward)
 {
 	float sp, sy, cp, cy;
 
-	SinCos(DEG2RAD(angles[1]), &sy, &cy);
 	SinCos(DEG2RAD(angles[0]), &sp, &cp);
+	SinCos(DEG2RAD(angles[1]), &sy, &cy);
 
 	forward->x = cp * cy;
 	forward->y = cp * sy;

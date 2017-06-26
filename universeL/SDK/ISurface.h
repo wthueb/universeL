@@ -6,8 +6,7 @@
 #include "IAppSystem.h"
 #include "Vector2D.h"
 
-
-typedef ULONG HFont;
+typedef unsigned long HFont;
 
 struct IntRect
 {
@@ -20,11 +19,13 @@ struct IntRect
 struct Vertex_t
 {
 	Vertex_t() {}
+
 	Vertex_t(const Vector2D &pos, const Vector2D &coord = Vector2D(0, 0))
 	{
 		m_Position = pos;
 		m_TexCoord = coord;
 	}
+
 	void Init(const Vector2D &pos, const Vector2D &coord = Vector2D(0, 0))
 	{
 		m_Position = pos;

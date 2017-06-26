@@ -13,14 +13,14 @@ struct GlowObjectDefinition_t
 	C_BaseEntity* m_pEntity;
 	Vector m_vecGlowColor;
 	float m_flGlowAlpha;
-	char _unknown[4];
+	char _unk[4];
 	float _flUnk;
 	float m_flBloomAmount;
 	float _flUnk1;
 	bool m_bRenderWhenOccluded;
 	bool m_bRenderWhenUnoccluded;
 	bool m_bFullBloomRender;
-	char _unknown1;
+	char _unk1;
 	int m_nFullBloomStencilTestValue;
 	int m_nGlowStyle;
 	int m_nSplitScreenSlot;

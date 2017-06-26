@@ -4,20 +4,18 @@
 void Unload(HMODULE hModule)
 {
 	Options::Unload();
+
 	// wait for all loops to finish
 	Sleep(100);
 
-	// unhook
 	Hooks::Restore();
 
 	// sleep to be sure that threads are not running
-	// this means that every thread can't sleep for more then 5 seconds
+	// means that every thread can't sleep for more then 5 seconds
 	Sleep(5000);
 
-	// unload
 	FreeLibraryAndExitThread(hModule, 0);
 
-	// exit this thread
 	ExitThread(0);
 }
 
@@ -26,9 +24,7 @@ void WaitForUnload(HMODULE hModule)
 	while (true)
 	{
 		if (Interfaces::InputSystem()->IsButtonDown(ButtonCode_t::KEY_DELETE))
-		{
 			Unload(hModule);
-		}
 
 		Sleep(1000);
 	}
