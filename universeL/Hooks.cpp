@@ -45,10 +45,11 @@ namespace Hooks
 	{
 		//AllocConsole();
 		AttachConsole(GetCurrentProcessId());
-		freopen("CON", "w", stdout);
+		FILE* newstdout;
+		freopen_s(&newstdout, "CON", "w", stdout);
 		SetConsoleTitleA(XorStr("universeL debug"));
 
-		snprintf(name, sizeof(name), "universeL v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
+		sprintf_s(name, sizeof(name), "universeL v%d.%d.%d", VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH);
 
 		NetvarManager::Instance()->CreateDatabase();
 

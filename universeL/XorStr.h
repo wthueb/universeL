@@ -122,7 +122,7 @@ static auto w_printf_s = [](const char* fmt, ...) {
 static auto w_sprintf = [](char* buf, const char* fmt, ...) {
     va_list args;
     va_start(args, fmt);
-    vsprintf(buf, fmt, args);
+    vsprintf_s(buf, sizeof(buf), fmt, args);
     va_end(args);
 };
 

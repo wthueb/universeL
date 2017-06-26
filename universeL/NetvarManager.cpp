@@ -159,7 +159,7 @@ void NetvarManager::Dump(std::ostream &output, NetvarTable &table, int level)
 	char line[512] = "";
 	char fmt[512] = "";
 
-	sprintf(fmt, "%%-%ds: 0x%%08X\n", 50 - level * 4);
+	sprintf_s(fmt, sizeof(fmt), "%%-%ds: 0x%%08X\n", 50 - level * 4);
 
 	for (auto &prop : table.m_ChildProps)
 	{
@@ -175,7 +175,7 @@ void NetvarManager::Dump(std::ostream &output, NetvarTable &table, int level)
 			}
 		}
 
-		sprintf(line, fmt, prop.first.c_str(), prop.second + table.m_uOffset);
+		sprintf_s(line, sizeof(line), fmt, prop.first.c_str(), prop.second + table.m_uOffset);
 
 		output << line;
 	}
@@ -194,7 +194,7 @@ void NetvarManager::Dump(std::ostream &output, NetvarTable &table, int level)
 			}
 		}
 
-		sprintf(line, fmt, child.first.c_str(), child.second->m_uOffset);
+		sprintf_s(line, sizeof(line), fmt, child.first.c_str(), child.second->m_uOffset);
 
 		output << line;
 
