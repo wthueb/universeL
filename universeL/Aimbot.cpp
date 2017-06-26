@@ -5,8 +5,8 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
-#define RAD2DEG(x)    (static_cast<float>(x) * static_cast<float>(180.f / M_PI))
-#define DEG2RAD(x)    (static_cast<float>(x) * static_cast<float>(M_PI / 180.f))
+#define RAD2DEG(x) (static_cast<float>(x) * static_cast<float>(180.f / M_PI))
+#define DEG2RAD(x) (static_cast<float>(x) * static_cast<float>(M_PI / 180.f))
 
 void FindTarget();
 void DropTarget();
@@ -232,6 +232,10 @@ bool IsValidPlayer(C_BasePlayer* player)
 
 void ClampAngle(QAngle& angle)
 {
+	for (auto i = 0; i < 3; ++i)
+		if (!std::isfinite(angle[i])) // if it is infinite or NaN
+			angle[i] = 0.f;
+
 	// pitch
 	angle.x = std::clamp(std::remainder(angle.x, 180.f), -89.f, 89.f);
 

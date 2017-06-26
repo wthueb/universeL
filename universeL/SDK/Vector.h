@@ -9,6 +9,7 @@ class Vector;
 typedef Vector QAngle;
 
 typedef float vec_t;
+
 // 3D Vector
 class Vector
 {
