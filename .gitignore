@@ -4,6 +4,7 @@
 # User-specific files
 *.exe
 *.dll
+*.lnk
 *.suo
 *.user
 *.userosscache
