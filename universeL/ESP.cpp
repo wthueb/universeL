@@ -158,7 +158,8 @@ void DrawPlayer(C_BasePlayer* player, player_info_t playerinfo)
 
 void DrawPlantedBomb(C_PlantedC4* plantedbomb)
 {
-	auto color = plantedbomb->GetBombDefusing() != -1 || plantedbomb->IsBombDefused() ? Color(0, 255, 0, 255) : Color(255, 0, 0, 255);
+	auto color = plantedbomb->GetBombDefusing() != -1 || plantedbomb->IsBombDefused() ?
+		Color(0, 255, 0, 255) : Color(255, 0, 0, 255);
 
 	float bombtimer = plantedbomb->GetBombTime() - Interfaces::GlobalVars()->curtime;
 
@@ -168,6 +169,16 @@ void DrawPlantedBomb(C_PlantedC4* plantedbomb)
 		displaytext << "bomb";
 	else
 		displaytext << "bomb: " << std::fixed << std::showpoint << std::setprecision(1) << bombtimer;
+
+	if (plantedbomb->GetBombDefusing() != -1)
+	{
+		float defusetimer = plantedbomb->GetDefuseTime() - Interfaces::GlobalVars()->curtime;
+
+		if (defusetimer > bombtimer)
+			displaytext << " - defusing: NO TIME";
+		else
+			displaytext << " - defusing: " << std::fixed << std::showpoint << std::setprecision(1) << defusetimer;
+	}
 
 	DrawEntity(plantedbomb, displaytext.str().c_str(), color);
 }

@@ -433,6 +433,11 @@ public:
 	{
 		return *reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_PlantedC4"), XorStr("m_hBombDefuser")));
 	}
+
+	float GetDefuseTime()
+	{
+		return *reinterpret_cast<float*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_PlantedC4"), XorStr("m_flDefuseCountDown")));
+	}
 };
 
 class C_BaseAttributableItem : public C_BaseEntity
