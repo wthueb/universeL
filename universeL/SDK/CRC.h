@@ -1,6 +1,6 @@
 #pragma once
 
-typedef unsigned long CRC32_t;
+using CRC32_t = unsigned long;
 
 void      CRC32_Init(CRC32_t* pulCRC);
 void      CRC32_ProcessBuffer(CRC32_t* pulCRC, const void* p, int len);

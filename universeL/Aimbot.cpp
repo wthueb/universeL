@@ -21,8 +21,6 @@ float GetFov(const QAngle& viewAngle, const QAngle& aimAngle);
 void VectorAngles(const Vector& forward, QAngle &angles);
 void AngleVectors(const QAngle& angles, Vector* forward);
 
-typedef bool(*LineGoesThroughSmokeFn)(Vector, Vector, short);
-
 C_BasePlayer* localplayer = nullptr;
 C_BaseCombatWeapon* activeweapon = nullptr;
 CUserCmd* cmd = nullptr;
@@ -198,6 +196,8 @@ void CorrectAim()
 
 bool IsVisible(C_BasePlayer* player)
 {
+	using LineGoesThroughSmokeFn = bool(__cdecl*)(Vector, Vector, short);
+	
 	static LineGoesThroughSmokeFn LineGoesThroughSmoke =
 		reinterpret_cast<LineGoesThroughSmokeFn>(Utils::FindSignature(XorStr("client.dll"), XorStr("55 8B EC 83 EC 08 8B 15 ? ? ? ? 0F 57 C0")));
 	

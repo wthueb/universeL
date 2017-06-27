@@ -1,11 +1,6 @@
 #pragma once
 
-#include <stdio.h>
-
-#include "Definitions.h"
-
-
-enum class SendPropType
+enum SendPropType
 {
     DPT_Int = 0,
     DPT_Float,

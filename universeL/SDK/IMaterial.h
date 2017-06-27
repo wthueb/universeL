@@ -1,7 +1,7 @@
 #pragma once
 
 class IMaterialVar;
-typedef uint64_t VertexFormat_t;
+using VertexFormat_t = uint64_t;
 
 enum MaterialVarFlags_t
 {

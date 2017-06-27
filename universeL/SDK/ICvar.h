@@ -50,7 +50,7 @@ class ConCommandBase;
 struct characterset_t;
 class IConVar;
 
-typedef void(*FnChangeCallback_t)(IConVar* var, const char* pOldValue, float flOldValue);
+using FnChangeCallback_t = void(*)(IConVar* var, const char* pOldValue, float flOldValue);
 
 class IConVar
 {
@@ -157,8 +157,8 @@ public:
 //-----------------------------------------------------------------------------
 // Called when a ConCommand needs to execute
 //-----------------------------------------------------------------------------
-typedef void(*FnCommandCallbackV1_t)();
-typedef void(*FnCommandCallback_t)(const CCommand &command);
+using FnCommandCallbackV1_t = void(*)();
+using FnCommandCallback_t = void(*)(const CCommand &command);
 
 #define COMMAND_COMPLETION_MAXITEMS       64
 #define COMMAND_COMPLETION_ITEM_LENGTH    64
@@ -166,7 +166,7 @@ typedef void(*FnCommandCallback_t)(const CCommand &command);
 //-----------------------------------------------------------------------------
 // Returns 0 to COMMAND_COMPLETION_MAXITEMS worth of completion strings
 //-----------------------------------------------------------------------------
-typedef int(*FnCommandCompletionCallback)(const char* partial, char commands[COMMAND_COMPLETION_MAXITEMS][COMMAND_COMPLETION_ITEM_LENGTH]);
+using FnCommandCompletionCallback = int(*)(const char* partial, char commands[COMMAND_COMPLETION_MAXITEMS][COMMAND_COMPLETION_ITEM_LENGTH]);
 
 
 //-----------------------------------------------------------------------------
@@ -184,7 +184,7 @@ public:
 	virtual int CommandCompletionCallback(const char* pPartial, CUtlString_t &commands) = 0;
 };
 
-typedef int CVarDLLIdentifier_t;
+using CVarDLLIdentifier_t = int;
 
 //-----------------------------------------------------------------------------
 // Purpose: The base console invoked command/cvar interface
@@ -258,7 +258,7 @@ class ConCommand : public ConCommandBase
 	friend class CCvar;
 
 public:
-	typedef ConCommandBase BaseClass;
+	using BaseClass = ConCommandBase;
 
 	ConCommand(const char* pName, FnCommandCallbackV1_t callback,
 		const char* pHelpString = 0, int flags = 0, FnCommandCompletionCallback completionFunc = 0);
@@ -312,7 +312,7 @@ class ConVar : public ConCommandBase, public IConVar
 	friend class SplitScreenConVarRef;
 
 public:
-	typedef ConCommandBase BaseClass;
+	using BaseClass = ConCommandBase;
 
 	ConVar(const char* pName, const char* pDefaultValue, int flags = 0);
 
@@ -473,8 +473,6 @@ FORCEINLINE_CVAR const char* ConVar::GetString() const
 //-----------------------------------------------------------------------------
 void ConVar_Register(int nCVarFlag = 0, IConCommandBaseAccessor* pAccessor = NULL);
 void ConVar_Unregister();
-
-typedef int CVarDLLIdentifier_t;
 
 class IConsoleDisplayFunc
 {

@@ -12,10 +12,10 @@ using namespace std;
 
 #pragma region Helper classes
 
-typedef unordered_map<string, unique_ptr<NetvarTable>>            TableMap;
-typedef unordered_map<string, uint32_t>                           PropMap;
+using TableMap = unordered_map<string, unique_ptr<NetvarTable>>;
+using PropMap = unordered_map<string, uint32_t>;
 
-typedef unordered_map<string, unique_ptr<NetvarTable>>::iterator  Iter;
+using Iter = unordered_map<string, unique_ptr<NetvarTable>>::iterator;
 
 struct NetvarTable
 {

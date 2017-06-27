@@ -252,5 +252,5 @@ public:
 
 public:
 	// The matrix.
-	vec_t		m[4][4];
+	vec_t m[4][4];
 };

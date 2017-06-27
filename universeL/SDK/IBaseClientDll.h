@@ -5,8 +5,8 @@
 #include "CGlobalVarsBase.h"
 
 class IClientNetworkable;
-typedef IClientNetworkable*(*CreateClientClassFn)(int entnum, int serialNum);
-typedef IClientNetworkable*(*CreateEventFn)();
+using CreateClientClassFn = IClientNetworkable*(*)(int entnum, int serialnum);
+using CreateEventFn = IClientNetworkable*(*)();
 
 class RecvTable;
 

@@ -2,21 +2,20 @@
 
 #include "Definitions.h"
 
-
 class IPanel
 {
 public:
-	const char *GetName(unsigned int vguiPanel)
+	const char* GetName(unsigned int vguiPanel)
 	{
-		typedef const char *(__thiscall* tGetName)(PVOID, unsigned int);
-		return CallVFunction<tGetName>(this, 36)(this, vguiPanel);
+		using oGetName = const char*(__thiscall*)(void*, unsigned int);
+		return CallVFunction<oGetName>(this, 36)(this, vguiPanel);
 	}
 #ifdef GetClassName
 #undef GetClassName
 #endif
-	const char *GetClassName(unsigned int vguiPanel)
+	const char* GetClassName(unsigned int vguiPanel)
 	{
-		typedef const char *(__thiscall* tGetClassName)(PVOID, unsigned int);
-		return CallVFunction<tGetClassName>(this, 37)(this, vguiPanel);
+		using oGetClassName = const char*(__thiscall*)(void*, unsigned int);
+		return CallVFunction<oGetClassName>(this, 37)(this, vguiPanel);
 	}
 };

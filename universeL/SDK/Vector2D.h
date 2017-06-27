@@ -1,8 +1,7 @@
 #pragma once
 
-#include "Definitions.h"
+using vec_t = float;
 
-typedef float vec_t;
 // 2D Vector
 class Vector2D
 {
@@ -109,20 +108,20 @@ public:
 	// Get the vector's magnitude squared.
 	vec_t LengthSqr(void) const
 	{
-		return (x*x + y*y);
+		return x*x + y*y;
 	}
 
 	// return true if this vector is (0,0,0) within tolerance
 	bool IsZero(float tolerance = 0.01f) const
 	{
-		return (x > -tolerance && x < tolerance &&
-			y > -tolerance && y < tolerance);
+		return x > -tolerance && x < tolerance &&
+			y > -tolerance && y < tolerance;
 	}
 
-	vec_t	NormalizeInPlace();
+	vec_t	    NormalizeInPlace();
 	Vector2D	Normalized() const;
-	bool	IsLengthGreaterThan(float val) const;
-	bool	IsLengthLessThan(float val) const;
+	bool	    IsLengthGreaterThan(float val) const;
+	bool	    IsLengthLessThan(float val) const;
 
 	// check if a vector is within the box defined by two other vectors
 	bool WithinAABox(Vector2D const &boxmin, Vector2D const &boxmax);

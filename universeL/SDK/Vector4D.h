@@ -1,7 +1,7 @@
 #pragma once
 
+using vec_t = float;
 
-typedef float vec_t;
 // 3D Vector4D
 class Vector4D
 {
@@ -121,22 +121,22 @@ public:
     // return true if this vector is (0,0,0) within tolerance
     bool IsZero(float tolerance = 0.01f) const
     {
-        return (x > -tolerance && x < tolerance &&
+        return x > -tolerance && x < tolerance &&
             y > -tolerance && y < tolerance &&
             z > -tolerance && z < tolerance &&
-            w > -tolerance && w < tolerance);
+            w > -tolerance && w < tolerance;
     }
 
-    vec_t	NormalizeInPlace();
+    vec_t	    NormalizeInPlace();
     Vector4D	Normalized() const;
-    bool	IsLengthGreaterThan(float val) const;
-    bool	IsLengthLessThan(float val) const;
+    bool	    IsLengthGreaterThan(float val) const;
+    bool	    IsLengthLessThan(float val) const;
 
     // check if a vector is within the box defined by two other vectors
     bool WithinAABox(Vector4D const &boxmin, Vector4D const &boxmax);
 
     // Get the distance from this vector to the other one.
-    vec_t	DistTo(const Vector4D &vOther) const;
+    vec_t DistTo(const Vector4D &vOther) const;
 
     // Get the distance from this vector to the other one squared.
     // NJS: note, VC wasn't inlining it correctly in several deeply nested inlines due to being an 'out of line' .  
@@ -154,15 +154,15 @@ public:
     }
 
     // Copy
-    void	CopyToArray(float* rgfl) const;
+    void CopyToArray(float* rgfl) const;
 
     // Multiply, add, and assign to this (ie: *this = a + b * scalar). This
     // is about 12% faster than the actual vector equation (because it's done per-component
     // rather than per-vector).
-    void	MulAdd(const Vector4D& a, const Vector4D& b, float scalar);
+    void MulAdd(const Vector4D& a, const Vector4D& b, float scalar);
 
     // Dot product.
-    vec_t	Dot(const Vector4D& vOther) const;
+    vec_t Dot(const Vector4D& vOther) const;
 
     // assignment
     Vector4D& operator=(const Vector4D &vOther);
@@ -178,16 +178,16 @@ public:
     //	Vector4D(const Vector4D &vOther);
 
     // arithmetic operations
-    Vector4D	operator-(void) const;
+    Vector4D operator-(void) const;
 
-    Vector4D	operator+(const Vector4D& v) const;
-    Vector4D	operator-(const Vector4D& v) const;
-    Vector4D	operator*(const Vector4D& v) const;
-    Vector4D	operator/(const Vector4D& v) const;
-    Vector4D	operator*(float fl) const;
-    Vector4D	operator/(float fl) const;
+    Vector4D operator+(const Vector4D& v) const;
+    Vector4D operator-(const Vector4D& v) const;
+    Vector4D operator*(const Vector4D& v) const;
+    Vector4D operator/(const Vector4D& v) const;
+    Vector4D operator*(float fl) const;
+    Vector4D operator/(float fl) const;
 
     // Returns a vector with the min or max in X, Y, and Z.
-    Vector4D	Min(const Vector4D &vOther) const;
-    Vector4D	Max(const Vector4D &vOther) const;
+    Vector4D Min(const Vector4D &vOther) const;
+    Vector4D Max(const Vector4D &vOther) const;
 };

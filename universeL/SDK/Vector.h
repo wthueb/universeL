@@ -6,9 +6,9 @@
 
 // xd
 class Vector;
-typedef Vector QAngle;
+using QAngle = Vector;
 
-typedef float vec_t;
+using vec_t = float;
 
 // 3D Vector
 class Vector

@@ -2,7 +2,7 @@
 
 #include "Vector2D.h"
 
-Vector2D::Vector2D(void)
+Vector2D::Vector2D()
 {
 }
 
@@ -27,8 +27,8 @@ void Vector2D::Init(vec_t ix, vec_t iy)
 
 void Vector2D::Random(float minVal, float maxVal)
 {
-	x = minVal + ((float)rand() / RAND_MAX) * (maxVal - minVal);
-	y = minVal + ((float)rand() / RAND_MAX) * (maxVal - minVal);
+	x = minVal + (static_cast<float>(rand()) / RAND_MAX) * (maxVal - minVal);
+	y = minVal + (static_cast<float>(rand()) / RAND_MAX) * (maxVal - minVal);
 }
 
 void Vector2DClear(Vector2D& a)
@@ -52,12 +52,12 @@ Vector2D& Vector2D::operator=(const Vector2D &vOther)
 
 vec_t& Vector2D::operator[](int i)
 {
-	return ((vec_t*)this)[i];
+	return reinterpret_cast<vec_t*>(this)[i];
 }
 
 vec_t Vector2D::operator[](int i) const
 {
-	return ((vec_t*)this)[i];
+	return reinterpret_cast<vec_t*>(const_cast<Vector2D*>(this))[i];
 }
 
 //-----------------------------------------------------------------------------
@@ -66,12 +66,12 @@ vec_t Vector2D::operator[](int i) const
 
 vec_t* Vector2D::Base()
 {
-	return (vec_t*)this;
+	return reinterpret_cast<vec_t*>(this);
 }
 
 vec_t const* Vector2D::Base() const
 {
-	return (vec_t const*)this;
+	return reinterpret_cast<vec_t const*>(this);
 }
 
 //-----------------------------------------------------------------------------
@@ -89,12 +89,12 @@ bool Vector2D::IsValid() const
 
 bool Vector2D::operator==(const Vector2D& src) const
 {
-	return (src.x == x) && (src.y == y);
+	return src.x == x && src.y == y;
 }
 
 bool Vector2D::operator!=(const Vector2D& src) const
 {
-	return (src.x != x) || (src.y != y);
+	return src.x != x || src.y != y;
 }
 
 
@@ -168,7 +168,7 @@ void Vector2DMA(const Vector2D& start, float s, const Vector2D& dir, Vector2D& r
 
 // FIXME: Remove
 // For backwards compatability
-void	Vector2D::MulAdd(const Vector2D& a, const Vector2D& b, float scalar)
+void Vector2D::MulAdd(const Vector2D& a, const Vector2D& b, float scalar)
 {
 	x = a.x + b.x * scalar;
 	y = a.y + b.y * scalar;
@@ -185,7 +185,7 @@ void Vector2DLerp(const Vector2D& src1, const Vector2D& src2, vec_t t, Vector2D&
 //-----------------------------------------------------------------------------
 vec_t DotProduct2D(const Vector2D& a, const Vector2D& b)
 {
-	return(a.x*b.x + a.y*b.y);
+	return a.x*b.x + a.y*b.y;
 }
 
 // for backwards compatability
@@ -211,7 +211,7 @@ vec_t Vector2DNormalize(Vector2D& v)
 //-----------------------------------------------------------------------------
 vec_t Vector2DLength(const Vector2D& v)
 {
-	return (vec_t)sqrt(v.x*v.x + v.y*v.y);
+	return static_cast<vec_t>(sqrt(v.x*v.x + v.y*v.y));
 }
 
 vec_t Vector2D::NormalizeInPlace()
@@ -237,15 +237,15 @@ vec_t Vector2D::Length(void) const
 
 void Vector2DMin(const Vector2D &a, const Vector2D &b, Vector2D &result)
 {
-	result.x = (a.x < b.x) ? a.x : b.x;
-	result.y = (a.y < b.y) ? a.y : b.y;
+	result.x = a.x < b.x ? a.x : b.x;
+	result.y = a.y < b.y ? a.y : b.y;
 }
 
 
 void Vector2DMax(const Vector2D &a, const Vector2D &b, Vector2D &result)
 {
-	result.x = (a.x > b.x) ? a.x : b.x;
-	result.y = (a.y > b.y) ? a.y : b.y;
+	result.x = a.x > b.x ? a.x : b.x;
+	result.y = a.y > b.y ? a.y : b.y;
 }
 
 //-----------------------------------------------------------------------------
@@ -256,10 +256,12 @@ void ComputeClosestPoint2D(const Vector2D& vecStart, float flMaxDist, const Vect
 	Vector2D vecDelta;
 	Vector2DSubtract(vecTarget, vecStart, vecDelta);
 	float flDistSqr = vecDelta.LengthSqr();
-	if (flDistSqr <= flMaxDist * flMaxDist) {
+	if (flDistSqr <= flMaxDist * flMaxDist)
+	{
 		*pResult = vecTarget;
 	}
-	else {
+	else
+	{
 		vecDelta /= sqrt(flDistSqr);
 		Vector2DMA(vecStart, flMaxDist, vecDelta, *pResult);
 	}

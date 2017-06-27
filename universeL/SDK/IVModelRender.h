@@ -4,8 +4,7 @@
 
 #include "Vector.h"
 
-
-typedef unsigned short ModelInstanceHandle_t;
+using ModelInstanceHandle_t = unsigned short;
 class IMaterial;
 
 struct model_t
@@ -41,13 +40,13 @@ class IVModelRender
 public:
 	void ForcedMaterialOverride(IMaterial* mat)
 	{
-		typedef void(*oForcedMaterialOverride)(void*, IMaterial*, int, int);
+		using oForcedMaterialOverride = void(__thiscall*)(void*, IMaterial*, int, int);
 		return CallVFunction<oForcedMaterialOverride>(this, 1)(this, mat, 0, 0);
 	}
 
 	void DrawModelExecute(void* ctx, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld = NULL)
 	{
-		typedef void(*oDrawModelExecute)(void*, void* ctx, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld);
+		using oDrawModelExecute = void(__thiscall*)(void*, void* ctx, void *state, const ModelRenderInfo_t &pInfo, matrix3x4_t* pCustomBoneToWorld);
 		return CallVFunction<oDrawModelExecute>(this, 21)(this, ctx, state, pInfo, pCustomBoneToWorld);
 	}
 };

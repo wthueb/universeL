@@ -39,13 +39,11 @@ inline VMatrix::VMatrix(const Vector& xAxis, const Vector& yAxis, const Vector& 
 	);
 }
 
-
 inline void VMatrix::Init(
 	vec_t m00, vec_t m01, vec_t m02, vec_t m03,
 	vec_t m10, vec_t m11, vec_t m12, vec_t m13,
 	vec_t m20, vec_t m21, vec_t m22, vec_t m23,
-	vec_t m30, vec_t m31, vec_t m32, vec_t m33
-)
+	vec_t m30, vec_t m31, vec_t m32, vec_t m33)
 {
 	m[0][0] = m00;
 	m[0][1] = m01;
@@ -67,7 +65,6 @@ inline void VMatrix::Init(
 	m[3][2] = m32;
 	m[3][3] = m33;
 }
-
 
 //-----------------------------------------------------------------------------
 // Initialize from a 3x4
@@ -149,7 +146,6 @@ inline void VMatrix::SetBasisVectors(const Vector &vForward, const Vector &vLeft
 	SetUp(vUp);
 }
 
-
 //-----------------------------------------------------------------------------
 // Methods related to the translation component of the matrix
 //-----------------------------------------------------------------------------
@@ -174,7 +170,6 @@ inline void VMatrix::SetTranslation(const Vector &vTrans)
 	m[2][3] = vTrans.z;
 }
 
-
 //-----------------------------------------------------------------------------
 // appply translation to this matrix in the input space
 //-----------------------------------------------------------------------------
@@ -186,7 +181,6 @@ inline void VMatrix::PreTranslate(const Vector &vTrans)
 	m[1][3] = tmp.y;
 	m[2][3] = tmp.z;
 }
-
 
 //-----------------------------------------------------------------------------
 // appply translation to this matrix in the output space
@@ -200,12 +194,12 @@ inline void VMatrix::PostTranslate(const Vector &vTrans)
 
 inline const matrix3x4_t& VMatrix::As3x4() const
 {
-	return *((const matrix3x4_t*)this);
+	return *reinterpret_cast<const matrix3x4_t*>(this);
 }
 
 inline matrix3x4_t& VMatrix::As3x4()
 {
-	return *((matrix3x4_t*)this);
+	return *reinterpret_cast<matrix3x4_t*>(this);
 }
 
 inline void VMatrix::CopyFrom3x4(const matrix3x4_t &m3x4)
@@ -220,17 +214,14 @@ inline void	VMatrix::Set3x4(matrix3x4_t& matrix3x4) const
 	memcpy(matrix3x4.Base(), m, sizeof(matrix3x4_t));
 }
 
-
 //-----------------------------------------------------------------------------
 // Matrix math operations
 //-----------------------------------------------------------------------------
 inline const VMatrix& VMatrix::operator+=(const VMatrix &other)
 {
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 4; ++i)
+		for (int j = 0; j < 4; j++)
 			m[i][j] += other.m[i][j];
-		}
-	}
 
 	return *this;
 }
@@ -238,9 +229,13 @@ inline const VMatrix& VMatrix::operator+=(const VMatrix &other)
 inline VMatrix VMatrix::operator+(const VMatrix &other) const
 {
 	VMatrix ret;
-	for (int i = 0; i < 16; i++) {
-		((float*)ret.m)[i] = ((float*)m)[i] + ((float*)other.m)[i];
+
+	for (int i = 0; i < 16; ++i)
+	{
+		reinterpret_cast<float*>(ret.m)[i] =
+			reinterpret_cast<float*>(const_cast<vec_t*>(*m))[i] + reinterpret_cast<float*>(const_cast<vec_t*>(*other.m))[i];
 	}
+
 	return ret;
 }
 
@@ -248,11 +243,9 @@ inline VMatrix VMatrix::operator-(const VMatrix &other) const
 {
 	VMatrix ret;
 
-	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
+	for (int i = 0; i < 4; ++i)
+		for (int j = 0; j < 4; j++)
 			ret.m[i][j] = m[i][j] - other.m[i][j];
-		}
-	}
 
 	return ret;
 }
@@ -260,16 +253,16 @@ inline VMatrix VMatrix::operator-(const VMatrix &other) const
 inline VMatrix VMatrix::operator-() const
 {
 	VMatrix ret;
-	for (int i = 0; i < 16; i++) {
-		((float*)ret.m)[i] = -((float*)m)[i];
-	}
+
+	for (int i = 0; i < 16; ++i)
+		reinterpret_cast<float*>(ret.m)[i] = -reinterpret_cast<float*>(const_cast<vec_t*>(*m))[i];
+
 	return ret;
 }
 
 //-----------------------------------------------------------------------------
 // Vector transformation
 //-----------------------------------------------------------------------------
-
 
 inline Vector VMatrix::operator*(const Vector &vVec) const
 {
@@ -299,8 +292,7 @@ inline Vector VMatrix::VMul4x3Transpose(const Vector &vVec) const
 	return Vector(
 		m[0][0] * tmp.x + m[1][0] * tmp.y + m[2][0] * tmp.z,
 		m[0][1] * tmp.x + m[1][1] * tmp.y + m[2][1] * tmp.z,
-		m[0][2] * tmp.x + m[1][2] * tmp.y + m[2][2] * tmp.z
-	);
+		m[0][2] * tmp.x + m[1][2] * tmp.y + m[2][2] * tmp.z);
 }
 
 inline Vector VMatrix::VMul3x3(const Vector &vVec) const
@@ -308,8 +300,7 @@ inline Vector VMatrix::VMul3x3(const Vector &vVec) const
 	return Vector(
 		m[0][0] * vVec.x + m[0][1] * vVec.y + m[0][2] * vVec.z,
 		m[1][0] * vVec.x + m[1][1] * vVec.y + m[1][2] * vVec.z,
-		m[2][0] * vVec.x + m[2][1] * vVec.y + m[2][2] * vVec.z
-	);
+		m[2][0] * vVec.x + m[2][1] * vVec.y + m[2][2] * vVec.z);
 }
 
 inline Vector VMatrix::VMul3x3Transpose(const Vector &vVec) const
@@ -317,8 +308,7 @@ inline Vector VMatrix::VMul3x3Transpose(const Vector &vVec) const
 	return Vector(
 		m[0][0] * vVec.x + m[1][0] * vVec.y + m[2][0] * vVec.z,
 		m[0][1] * vVec.x + m[1][1] * vVec.y + m[2][1] * vVec.z,
-		m[0][2] * vVec.x + m[1][2] * vVec.y + m[2][2] * vVec.z
-	);
+		m[0][2] * vVec.x + m[1][2] * vVec.y + m[2][2] * vVec.z);
 }
 
 

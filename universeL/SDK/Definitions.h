@@ -7,12 +7,12 @@
 
 #define MASK_ALL					(0xFFFFFFFF)
 
-typedef void*(*CreateInterfaceFn)(const char* pName, int* pReturnCode);
-typedef void*(*InstantiateInterfaceFn)();
+using CreateInterfaceFn = void*(__cdecl*)(const char* szName, int* pReturnCode);
+using InstantiateInterfaceFn = void*(__cdecl*)();
 
-typedef unsigned int VPANEL;
+using VPANEL = unsigned int;
 
-typedef void(*pfnDemoCustomDataCallback)(unsigned char *pData, size_t iSize);
+using pfnDemoCustomDataCallback = void(__cdecl*)(unsigned char* szData, size_t iSize);
 
 template<typename T>
 inline T CallVFunction(void* ppClass, DWORD index)

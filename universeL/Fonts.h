@@ -1,6 +1,7 @@
 #pragma once
 
-typedef unsigned long HFont;
+using HFont = unsigned long;
+
 extern HFont espfont;
 
 namespace Fonts

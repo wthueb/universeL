@@ -13,14 +13,14 @@ struct GlowObjectDefinition_t
 	C_BaseEntity* m_pEntity;
 	Vector m_vecGlowColor;
 	float m_flGlowAlpha;
-	char _unk[4];
-	float _flUnk;
+	char m_unk[4];
+	float m_flUnk;
 	float m_flBloomAmount;
-	float _flUnk1;
+	float m_flUnk1;
 	bool m_bRenderWhenOccluded;
 	bool m_bRenderWhenUnoccluded;
 	bool m_bFullBloomRender;
-	char _unk1;
+	char m_unk1;
 	int m_nFullBloomStencilTestValue;
 	int m_nGlowStyle;
 	int m_nSplitScreenSlot;
@@ -44,8 +44,8 @@ public:
 		m_nFirstFreeSlot = m_GlowObjectDefinitions[index].m_nNextFreeSlot;
 
 		m_GlowObjectDefinitions[index].m_pEntity = entity;
-		m_GlowObjectDefinitions[index]._flUnk = 0.0f;
-		m_GlowObjectDefinitions[index]._flUnk1 = 0.0f;
+		m_GlowObjectDefinitions[index].m_flUnk = 0.0f;
+		m_GlowObjectDefinitions[index].m_flUnk1 = 0.0f;
 		m_GlowObjectDefinitions[index].m_bFullBloomRender = false;
 		m_GlowObjectDefinitions[index].m_nFullBloomStencilTestValue = 0;
 		m_GlowObjectDefinitions[index].m_nSplitScreenSlot = -1;

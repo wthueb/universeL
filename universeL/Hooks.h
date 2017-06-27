@@ -22,11 +22,11 @@ namespace Hooks
 	void GUI_Init(IDirect3DDevice9* pDevice);
 
 	// hook prototypes
-	typedef long(__stdcall* EndSceneFn)(IDirect3DDevice9*);
-	typedef long(__stdcall* ResetFn)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
-	typedef bool(__thiscall* CreateMoveFn)(void*, float, CUserCmd*);
-	typedef void(__thiscall* PaintTraverseFn)(void*, VPANEL, bool, bool);
-	typedef void(__thiscall* PlaySoundFn)(void*, const char*);
+	using EndSceneFn = long(__stdcall*)(IDirect3DDevice9*);
+	using ResetFn = long(__stdcall*)(IDirect3DDevice9*, D3DPRESENT_PARAMETERS*);
+	using CreateMoveFn = bool(__thiscall*)(void*, float, CUserCmd*);
+	using PaintTraverseFn = void(__thiscall*)(void*, VPANEL, bool, bool);
+	using PlaySoundFn = void(__thiscall*)(void*, const char*);
 
 	// hooked functions
 	HRESULT   __stdcall  hkEndScene(IDirect3DDevice9* pDevice);

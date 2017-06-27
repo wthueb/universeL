@@ -95,7 +95,7 @@ class IHandleEntity;
 class IClientEntity;
 struct Ray_t;
 class CGameTrace;
-typedef CGameTrace trace_t;
+using trace_t = CGameTrace;
 class ICollideable;
 class ITraceListData;
 class CPhysCollide;

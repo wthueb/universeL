@@ -1,12 +1,8 @@
 #pragma once
 
-#include "Definitions.h"
-
-#include "Color.h"
-#include "IAppSystem.h"
 #include "Vector2D.h"
 
-typedef unsigned long HFont;
+using HFont = unsigned long;
 
 struct IntRect
 {
@@ -43,6 +39,9 @@ struct Vertex_t
 #ifdef PlaySound
 #undef PlaySound
 #endif
+
+struct Color;
+class IAppSystem;
 
 class ISurface : public IAppSystem
 {

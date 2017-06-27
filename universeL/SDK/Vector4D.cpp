@@ -3,7 +3,6 @@
 #include <cmath>
 #include <limits>
 
-
 void VectorCopy(const Vector4D& src, Vector4D& dst)
 {
     dst.x = src.x;
@@ -34,7 +33,7 @@ vec_t NormalizeVector(Vector4D& v)
     return l;
 }
 
-Vector4D::Vector4D(void)
+Vector4D::Vector4D()
 {
     Invalidate();
 }
@@ -64,10 +63,10 @@ void Vector4D::Init(vec_t ix, vec_t iy, vec_t iz, vec_t iw)
 
 void Vector4D::Random(vec_t minVal, vec_t maxVal)
 {
-    x = minVal + ((float)rand() / RAND_MAX) * (maxVal - minVal);
-    y = minVal + ((float)rand() / RAND_MAX) * (maxVal - minVal);
-    z = minVal + ((float)rand() / RAND_MAX) * (maxVal - minVal);
-    w = minVal + ((float)rand() / RAND_MAX) * (maxVal - minVal);
+    x = minVal + (static_cast<float>(rand()) / RAND_MAX) * (maxVal - minVal);
+    y = minVal + (static_cast<float>(rand()) / RAND_MAX) * (maxVal - minVal);
+    z = minVal + (static_cast<float>(rand()) / RAND_MAX) * (maxVal - minVal);
+    w = minVal + (static_cast<float>(rand()) / RAND_MAX) * (maxVal - minVal);
 }
 
 // This should really be a single opcode on the PowerPC (move r0 onto the vec reg)
@@ -92,12 +91,12 @@ Vector4D& Vector4D::operator=(const Vector4D &vOther)
 //-----------------------------------------------------------------------------
 vec_t& Vector4D::operator[](int i)
 {
-    return ((vec_t*)this)[i];
+    return reinterpret_cast<vec_t*>(this)[i];
 }
 
 vec_t Vector4D::operator[](int i) const
 {
-    return ((vec_t*)this)[i];
+    return reinterpret_cast<vec_t*>(const_cast<Vector4D*>(this))[i];
 }
 
 
@@ -106,12 +105,12 @@ vec_t Vector4D::operator[](int i) const
 //-----------------------------------------------------------------------------
 vec_t* Vector4D::Base()
 {
-    return (vec_t*)this;
+    return reinterpret_cast<vec_t*>(this);
 }
 
 vec_t const* Vector4D::Base() const
 {
-    return (vec_t const*)this;
+    return reinterpret_cast<vec_t const*>(this);
 }
 
 //-----------------------------------------------------------------------------
@@ -142,19 +141,19 @@ void Vector4D::Invalidate()
 
 bool Vector4D::operator==(const Vector4D& src) const
 {
-    return (src.x == x) && (src.y == y) && (src.z == z) && (src.w == w);
+    return src.x == x && src.y == y && src.z == z && src.w == w;
 }
 
 bool Vector4D::operator!=(const Vector4D& src) const
 {
-    return (src.x != x) || (src.y != y) || (src.z != z) || (src.w != w);
+	return src.x != x || src.y != y || src.z != z || src.w != w;
 }
 
 
 //-----------------------------------------------------------------------------
 // Copy
 //-----------------------------------------------------------------------------
-void	Vector4D::CopyToArray(float* rgfl) const
+void Vector4D::CopyToArray(float* rgfl) const
 {
     rgfl[0] = x, rgfl[1] = y, rgfl[2] = z; rgfl[3] = w;
 }
@@ -177,7 +176,7 @@ Vector4D Vector4D::ProjectOnto(const Vector4D& onto)
 
 // FIXME: Remove
 // For backwards compatability
-void	Vector4D::MulAdd(const Vector4D& a, const Vector4D& b, float scalar)
+void Vector4D::MulAdd(const Vector4D& a, const Vector4D& b, float scalar)
 {
     x = a.x + b.x * scalar;
     y = a.y + b.y * scalar;
@@ -194,7 +193,7 @@ Vector4D VectorLerp(const Vector4D& src1, const Vector4D& src2, vec_t t)
 
 vec_t Vector4D::Dot(const Vector4D& b) const
 {
-    return (x*b.x + y*b.y + z*b.z + w*b.w);
+    return x*b.x + y*b.y + z*b.z + w*b.w;
 }
 void VectorClear(Vector4D& a)
 {
@@ -209,12 +208,10 @@ vec_t Vector4D::Length(void) const
 // check a point against a box
 bool Vector4D::WithinAABox(Vector4D const &boxmin, Vector4D const &boxmax)
 {
-    return (
-        (x >= boxmin.x) && (x <= boxmax.x) &&
-        (y >= boxmin.y) && (y <= boxmax.y) &&
-        (z >= boxmin.z) && (z <= boxmax.z) &&
-        (w >= boxmin.w) && (w <= boxmax.w)
-        );
+    return x >= boxmin.x && x <= boxmax.x &&
+        y >= boxmin.y && y <= boxmax.y &&
+        z >= boxmin.z && z <= boxmax.z &&
+        w >= boxmin.w && w <= boxmax.w;
 }
 
 //-----------------------------------------------------------------------------

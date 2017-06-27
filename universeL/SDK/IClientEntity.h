@@ -55,10 +55,10 @@ public:
 
 class IClientUnknown;
 
-typedef unsigned short ClientShadowHandle_t;
-typedef unsigned short ClientRenderHandle_t;
-typedef unsigned short ModelInstanceHandle_t;
-typedef unsigned char uint8;
+using ClientShadowHandle_t = unsigned short;
+using ClientRenderHandle_t = unsigned short;
+using ModelInstanceHandle_t = unsigned short;
+using uint8 = unsigned char;
 
 struct model_t;
 
@@ -98,7 +98,7 @@ public:
 	virtual ModelInstanceHandle_t      GetModelInstance() = 0;
 	virtual const matrix3x4_t&         RenderableToWorldTransform() = 0;
 	virtual int                        LookupAttachment(const char* pAttachmentName) = 0;
-	virtual   bool                     GetAttachment(int number, Vector &origin, QAngle &angles) = 0;
+	virtual bool                       GetAttachment(int number, Vector &origin, QAngle &angles) = 0;
 	virtual bool                       GetAttachment(int number, matrix3x4_t &matrix) = 0;
 	virtual float*                     GetRenderClipPlane() = 0;
 	virtual int                        GetSkin() = 0;
@@ -134,7 +134,7 @@ public:
 
 class IClientUnknown;
 class CClientThinkHandlePtr;
-typedef CClientThinkHandlePtr* ClientThinkHandle_t;
+using ClientThinkHandle_t = CClientThinkHandlePtr*;
 
 class IClientThinkable
 {
@@ -180,7 +180,7 @@ public:
 
 	void SetModelIndex(int index)
 	{
-		typedef void(*oSetModelIndex)(void*, int);
+		using oSetModelIndex = void(__thiscall*)(void*, int);
 		return CallVFunction<oSetModelIndex>(this, 111)(this, index);
 	}
 
@@ -451,17 +451,20 @@ public:
 
 	int* GetItemIDHigh()
 	{
-		return reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"), XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_iItemIDHigh")));
+		return reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"),
+			XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_iItemIDHigh")));
 	}
 
 	int* GetEntityQuality()
 	{
-		return reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"), XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_iEntityQuality")));
+		return reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"),
+			XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_iEntityQuality")));
 	}
 
 	char* GetCustomName()
 	{
-		return reinterpret_cast<char*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"), XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_szCustomName")));
+		return reinterpret_cast<char*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"),
+			XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_szCustomName")));
 	}
 
 	int* GetFallbackPaintKit()
@@ -700,25 +703,25 @@ public:
 
 	CCSWeaponInfo* GetCSWpnData()
 	{
-		typedef CCSWeaponInfo* (*oGetCSWpnData)(void*);
+		using oGetCSWpnData = CCSWeaponInfo*(__thiscall*)(void*);
 		return CallVFunction<oGetCSWpnData>(this, 524)(this);
 	}
 
 	float GetInaccuracy()
 	{
-		typedef float(*oGetInaccuracy)(void*);
+		using oGetInaccuracy = float(__thiscall*)(void*);
 		return CallVFunction<oGetInaccuracy>(this, 552)(this);
 	}
 
 	float GetSpread()
 	{
-		typedef float(*oGetSpread)(void*);
+		using oGetSpread = float(__thiscall*)(void*);
 		return CallVFunction<oGetSpread>(this, 553)(this);
 	}
 
 	void UpdateAccuracyPenalty()
 	{
-		typedef void(*oUpdateAccuracyPenalty)(void*);
+		using oUpdateAccuracyPenalty = void(__thiscall*)(void*);
 		return CallVFunction<oUpdateAccuracyPenalty>(this, 554)(this);
 	}
 };
