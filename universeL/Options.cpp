@@ -24,14 +24,14 @@ namespace Options
 		bool bAimbotEnabled = false;
 		bool bRCSEnabled = false;
 		
-		float flFov = 1.5f;
+		float flFov = 1.f;
 		bool bSmooth = true;
 		float flSmooth = 2.f;
 
 		bool bSilent = false;
 
 		bool bOnShoot = true;
-		bool bOnAimkey = true;
+		bool bOnAimkey = false;
 		int nAimkey = ButtonCode_t::MOUSE_4;
 
 		int nBone = static_cast<int>(Bone::BONE_NECK);

@@ -102,15 +102,10 @@ namespace Hooks
 
 	LRESULT __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		static bool isClicked = false;
-
 		if (uMsg == WM_KEYUP && wParam == VK_INSERT)
-			isClicked ^= true;
-
-		if (isClicked)
 		{
 			Options::bMainWindowOpen ^= true;
-			
+
 			// disable in-game mouse when in menu
 			static ConVar* cl_mouseenable = Interfaces::CVar()->FindVar(XorStr("cl_mouseenable"));
 			cl_mouseenable->SetValue(!Options::bMainWindowOpen);
