@@ -1,6 +1,7 @@
 #include "Aimbot.h"
 
 #include "Options.h"
+#include "Utils.h"
 
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -19,6 +20,8 @@ void ClampAngle(QAngle& angle);
 float GetFov(const QAngle& viewAngle, const QAngle& aimAngle);
 void VectorAngles(const Vector& forward, QAngle &angles);
 void AngleVectors(const QAngle& angles, Vector* forward);
+
+typedef bool(*LineGoesThroughSmokeFn)(Vector, Vector, short);
 
 C_BasePlayer* localplayer = nullptr;
 C_BaseCombatWeapon* activeweapon = nullptr;
@@ -195,8 +198,14 @@ void CorrectAim()
 
 bool IsVisible(C_BasePlayer* player)
 {
+	static LineGoesThroughSmokeFn LineGoesThroughSmoke =
+		reinterpret_cast<LineGoesThroughSmokeFn>(Utils::FindSignature(XorStr("client.dll"), XorStr("55 8B EC 83 EC 08 8B 15 ? ? ? ? 0F 57 C0")));
+	
 	Vector start = localplayer->GetEyePosition();
 	Vector end = player->GetBonePosition(Options::Aim::nBone);
+
+	if (LineGoesThroughSmoke(start, end, 1))
+		return false;
 
 	Ray_t ray;
 	ray.Init(start, end);

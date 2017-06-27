@@ -17,7 +17,8 @@ void AutoAccept::PlaySound(const char* szFileName)
 		using IsReadyCallbackFn = void(__cdecl*)();
 
 		// func that is called when you press accept
-		static IsReadyCallbackFn IsReadyCallback = reinterpret_cast<IsReadyCallbackFn>(Utils::FindSignature(XorStr("client.dll"), XorStr("55 8B EC 83 E4 F8 83 EC 08 56 8B 35 ? ? ? ? 57 8B 8E")));
+		static IsReadyCallbackFn IsReadyCallback =
+			reinterpret_cast<IsReadyCallbackFn>(Utils::FindSignature(XorStr("client.dll"), XorStr("55 8B EC 83 E4 F8 83 EC 08 56 8B 35 ? ? ? ? 57 8B 8E")));
 
 		IsReadyCallback();
 

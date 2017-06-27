@@ -48,8 +48,8 @@ namespace Options
 		bool bDrawEnabled = false;
 		bool bCornerBoxes = false;
 
-		bool bDrawPlayers = false;
-		bool bDrawPlayerBox = false;
+		bool bDrawPlayers = true;
+		bool bDrawPlayerBox = true;
 		bool bDrawSkeleton = false;
 		bool bOnlyEnemies = false;
 
@@ -57,7 +57,7 @@ namespace Options
 		bool bShowHealth = false;
 		bool bShowHealthText = false;
 
-		bool bDrawBomb = false;
+		bool bDrawBomb = true;
 		bool bDrawNades = false;
 
 		float fAllyColor[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
@@ -67,7 +67,7 @@ namespace Options
 	namespace Misc
 	{
 		bool bBhopEnabled = false;
-		bool bShowRanks = false;
+		bool bShowRanks = true;
 		bool bAutoAccept = false;
 	}
 }
