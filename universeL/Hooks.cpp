@@ -14,7 +14,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 11
-#define VERSION_PATCH 0
+#define VERSION_PATCH 1
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -102,68 +102,21 @@ namespace Hooks
 
 	LRESULT __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	{
-		// FIXMEW: use IInputSystem to detect key presses
-		switch (uMsg)
-		{
-		case WM_LBUTTONDOWN:
-			vecPressedKeys[VK_LBUTTON] = true;
-			break;
-
-		case WM_LBUTTONUP:
-			vecPressedKeys[VK_LBUTTON] = false;
-			break;
-
-		case WM_RBUTTONDOWN:
-			vecPressedKeys[VK_RBUTTON] = true;
-			break;
-
-		case WM_RBUTTONUP:
-			vecPressedKeys[VK_RBUTTON] = false;
-			break;
-
-		case WM_KEYDOWN:
-			vecPressedKeys[wParam] = true;
-			break;
-
-		case WM_KEYUP:
-			vecPressedKeys[wParam] = false;
-			break;
-
-		default:
-			break;
-		}
-
-		static bool isDown = false;
 		static bool isClicked = false;
 
-		// insert toggles the menu
-		if (vecPressedKeys[VK_INSERT])
-		{
-			isClicked = false;
-			isDown = true;
-		}
-		else if (!vecPressedKeys[VK_INSERT] && isDown)
-		{
-			isClicked = true;
-			isDown = false;
-		}
-		else
-		{
-			isClicked = false;
-			isDown = false;
-		}
+		if (uMsg == WM_KEYUP && wParam == VK_INSERT)
+			isClicked ^= true;
 
 		if (isClicked)
 		{
-			Options::bMainWindowOpen = !Options::bMainWindowOpen;
+			Options::bMainWindowOpen ^= true;
 			
 			// disable in-game mouse when in menu
 			static ConVar* cl_mouseenable = Interfaces::CVar()->FindVar(XorStr("cl_mouseenable"));
 			cl_mouseenable->SetValue(!Options::bMainWindowOpen);
 		}
 
-		if (bWasInitialized && Options::bMainWindowOpen &&
-			ImGui_ImplDX9_WndProcHandler(hWnd, uMsg, wParam, lParam))
+		if (bWasInitialized && Options::bMainWindowOpen && ImGui_ImplDX9_WndProcHandler(hWnd, uMsg, wParam, lParam))
 			return true; // input was taken and used, return
 
 		return CallWindowProc(oWndProc, hWnd, uMsg, wParam, lParam);
