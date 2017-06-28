@@ -1,5 +1,5 @@
-// Simple LoadLibrary .dll Injector
-// Made by wi1
+// simple LoadLibraryA .dll injector
+// made by wi1
 
 #include <Windows.h>
 #include <TlHelp32.h>
@@ -8,7 +8,6 @@
 #include <conio.h>
 #include <string>
 
-
 // set console text color
 #define cyan SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY)
 #define green SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY)
@@ -16,7 +15,6 @@
 #define white SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
 
 #define exit std::cout << "press any key to exit...\n"; _getch(); return 0;
-
 
 DWORD GetProcessID(const char* ProcessName)
 {
@@ -55,7 +53,7 @@ BOOL InjectDll(DWORD ProcessID, LPCSTR DllPath)
 		return FALSE;
 
 	// same in every program, so no need to find where it is in other process
-	LPVOID AddressToLoadLibrary = static_cast<LPVOID>(GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA"));
+	LPVOID AddressToLoadLibraryA = static_cast<LPVOID>(GetProcAddress(GetModuleHandle("kernel32.dll"), "LoadLibraryA"));
 
 	// allocate memory in other program for dll path to be stored
 	LPVOID AddressToDll = static_cast<LPVOID>(VirtualAllocEx(hProcess, NULL, strlen(DllPath) + 1, MEM_RESERVE | MEM_COMMIT, PAGE_READWRITE));
@@ -64,7 +62,8 @@ BOOL InjectDll(DWORD ProcessID, LPCSTR DllPath)
 	WriteProcessMemory(hProcess, AddressToDll, static_cast<LPVOID>(const_cast<char*>(DllPath + '\0')), strlen(DllPath) + 1, NULL);
 
 	// load the dll in the target process by calling the address of the dll
-	HANDLE hRemoteThread = CreateRemoteThread(hProcess, NULL, NULL, static_cast<LPTHREAD_START_ROUTINE>(AddressToLoadLibrary), static_cast<LPVOID>(AddressToDll), NULL, NULL);
+	HANDLE hRemoteThread = CreateRemoteThread(hProcess, NULL, NULL, static_cast<LPTHREAD_START_ROUTINE>(AddressToLoadLibraryA),
+		static_cast<LPVOID>(AddressToDll), NULL, NULL);
 
 	if (hRemoteThread != INVALID_HANDLE_VALUE)
 	{
@@ -72,7 +71,7 @@ BOOL InjectDll(DWORD ProcessID, LPCSTR DllPath)
 		if (WaitForSingleObject(hRemoteThread, 10000) == WAIT_OBJECT_0)
 		{
 			// always close handles and unallocate memory
-			VirtualFreeEx(hProcess, AddressToLoadLibrary, 0, MEM_RELEASE);
+			VirtualFreeEx(hProcess, AddressToLoadLibraryA, 0, MEM_RELEASE);
 			CloseHandle(hRemoteThread);
 			CloseHandle(hProcess);
 
@@ -81,7 +80,7 @@ BOOL InjectDll(DWORD ProcessID, LPCSTR DllPath)
 		else
 		{
 			// always close handles and unallocate memory
-			VirtualFreeEx(hProcess, AddressToLoadLibrary, 0, MEM_RELEASE);
+			VirtualFreeEx(hProcess, AddressToLoadLibraryA, 0, MEM_RELEASE);
 			CloseHandle(hRemoteThread);
 			CloseHandle(hProcess);
 
@@ -92,7 +91,7 @@ BOOL InjectDll(DWORD ProcessID, LPCSTR DllPath)
 	return FALSE;
 }
 
-void WaitForExit(void*);
+void WaitForExit();
 
 int main()
 {
@@ -169,13 +168,14 @@ int main()
 	cyan;
 	cout << "press any key to exit...\n\n";
 	cout << "automatically exiting in 5 seconds...\n";
+
 	CreateThread(0, 0, reinterpret_cast<LPTHREAD_START_ROUTINE>(WaitForExit), 0, 0, 0);
+
 	_getch();
-	
 	return 0;
 }
 
-void WaitForExit(void*)
+void WaitForExit()
 {
 	Sleep(5000);
 #ifdef exit
