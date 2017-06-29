@@ -1,20 +1,15 @@
-// simple LoadLibraryA .dll injector
+// universeL cheat loader
 // made by wi1
+
+#include "Colors.h"
+#include "Update.h"
 
 #include <Windows.h>
 #include <TlHelp32.h>
 
 #include <iostream>
-#include <conio.h>
-#include <string>
 
-// set console text color
-#define cyan SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_BLUE | FOREGROUND_GREEN | FOREGROUND_INTENSITY)
-#define green SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN | FOREGROUND_INTENSITY)
-#define red SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_INTENSITY)
-#define white SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE)
-
-#define exit std::cout << "press any key to exit...\n"; _getch(); return 0;
+#define exit cyan; std::cout << "press any key to exit...\n"; _getch(); return 0;
 
 DWORD GetProcessID(const char* ProcessName)
 {
@@ -100,10 +95,22 @@ int main()
 	white;
 	cout << "=====================================================================\n\n";
 	cyan;
-	cout << "               simple cs:go LoadLibrary .dll injector\n";
+	cout << "                    universeL csgo cheat loader\n";
 	cout << "                            made by wi1\n\n";
 	white;
 	cout << "=====================================================================\n\n";
+
+	if (!Update())
+	{
+		red;
+		cout << "unable to update. assuming current version works\n\n";
+	}
+
+	white;
+	cout << "=====================================================================\n\n";
+
+	cyan;
+	cout << "attempting to load...\n\n";
 
 	// default to csgo cause what else would they use a basic injector for anyways?
 	string processname = "csgo";
@@ -125,7 +132,8 @@ int main()
 	green;
 	cout << processname << " has been found! process id: " << processid << "\n\n";
 
-	string dllname = "universeL.dll";
+	string dllname;
+	GetCurrentVersion(dllname);
 
 	// get absolute path of dll file
 	char dllpath[MAX_PATH];
@@ -148,22 +156,22 @@ int main()
 	_getch();
 
 	cyan;
-	cout << "\nattempting to inject...\n";
+	cout << "\nattempting to inject...\n\n";
 
 	if (!InjectDll(processid, dllpath))
 	{
 		red;
-		cout << "\ninjection failed. make sure that cs:go is running and\n"
-			"that the .dll is in the same directory as this injector\n\n";
+		cout << "injection failed. make sure that cs:go is running and\n"
+			    "that the .dll is in the same directory as this injector\n\n";
 		exit;
 	}
 	
 	white;
-	cout << "\n=====================================================================\n\n";
+	cout << "=====================================================================\n\n";
 	green;
-	cout <<   "successfully injected " << dllname << " into " << processname << "!\n\n";
+	cout << "successfully injected " << dllname << " into " << processname << "!\n\n";
 	white;
-	cout <<   "=====================================================================\n\n";
+	cout << "=====================================================================\n\n";
 	
 	cyan;
 	cout << "press any key to exit...\n\n";
