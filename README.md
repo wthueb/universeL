@@ -1,4 +1,5 @@
-# universeL
+universeL
+=========
 
 made by wi1
 
@@ -8,7 +9,8 @@ infuse accesses the internet to get the latest version of the cheat. you can com
 
 uses libcurl (static) to make a simple http request to a forward-facing domain
 
-## features
+features
+--------
 
 _all features can be toggled and customized via an in-game menu by pressing insert_
 
@@ -32,7 +34,8 @@ _hold delete to uninject_
 - show ranks on scoreboard
 - auto accept queues
 
-## thanks to: 
+thanks to:
+----------
 
 - markhc
 - namazso
