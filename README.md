@@ -6,8 +6,6 @@ btc: 1Ka3urajw5bCfFVzgSgHaRLsYWBdC6mGnj
 
 infuse is just a simple LoadLibraryA injector that i made, you can inject it with anything
 
-compiled: https://mega.nz/#F!csglUJYS!8S_imowOJjDA5RJvqlplug
-
 ## features
 
 _all features can be toggled and customized via an in-game menu by pressing insert_
