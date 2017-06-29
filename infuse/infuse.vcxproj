@@ -70,8 +70,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>D:\Programming\loadertest\infuse\libcurl\include;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Programming\loadertest\infuse\libcurl\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>$(SolutionDir)\infuse\libcurl\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)\infuse\libcurl\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IncludePath>D:\Programming\loadertest\cpr\include;$(IncludePath)</IncludePath>
