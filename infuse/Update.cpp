@@ -94,7 +94,7 @@ bool GetCurrentVersion(std::string &currentversion)
 
 bool DownloadVersion(CURL* &curl, std::string version)
 {
-	std::string url = "http://wi1.us.to/files/";
+	std::string url = "http://wi1.us.to/universeL-downloads/";
 
 	url.append(version);
 
