@@ -17,27 +17,28 @@
 
 #pragma comment(lib, "ws2_32.lib")
 
-size_t WriteDataFile(void* ptr, size_t size, size_t nmemb, FILE* stream) {
-	size_t written = fwrite(ptr, size, nmemb, stream);
+size_t WriteDataFile(void* contents, size_t size, size_t nmemb, FILE* stream) {
+	size_t written = fwrite(contents, size, nmemb, stream);
+
 	return written;
 }
 
-size_t WriteDataString(void *contents, size_t size, size_t nmemb, std::string *s)
+size_t WriteDataString(void* contents, size_t size, size_t nmemb, std::string* s)
 {
-	size_t newLength = size*nmemb;
+	size_t newLength = size * nmemb;
 	size_t oldLength = s->size();
+
 	try
 	{
 		s->resize(oldLength + newLength);
 	}
 	catch (std::bad_alloc)
 	{
-		//handle memory problem
 		return 0;
 	}
 
-	std::copy((char*)contents, (char*)contents + newLength, s->begin() + oldLength);
-	return size*nmemb;
+	std::copy(static_cast<char*>(contents), static_cast<char*>(contents) + newLength, s->begin() + oldLength);
+	return size * nmemb;
 }
 
 bool GetLatestVersion(CURL* &curl, std::string &latestversion)
