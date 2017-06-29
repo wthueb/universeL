@@ -4,7 +4,7 @@ made by wi1
 
 btc: 1Ka3urajw5bCfFVzgSgHaRLsYWBdC6mGnj
 
-infuse is just a simple LoadLibraryA injector that i made, you can inject it with anything
+infuse accesses the internet to get the latest version of the cheat. you can compile from source and use a different injector if you'd like
 
 compiled: https://mega.nz/#F!csglUJYS!8S_imowOJjDA5RJvqlplug
 
