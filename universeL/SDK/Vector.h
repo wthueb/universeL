@@ -3,6 +3,7 @@
 #include "Definitions.h"
 
 #include <sstream>
+#include <intrin.h>
 
 // xd
 class Vector;
@@ -18,7 +19,7 @@ public:
 	vec_t x, y, z;
 
 	// Construction/destruction:
-	Vector(void);
+	Vector();
 	Vector(vec_t X, vec_t Y, vec_t Z);
 	Vector(vec_t* clr);
 
@@ -109,10 +110,10 @@ public:
 	}
 
 	// negate the vector components
-	void	Negate();
+	void Negate();
 
 	// Get the vector's magnitude.
-	vec_t	Length() const;
+	vec_t Length() const;
 
 	// Get the vector's magnitude squared.
 	vec_t LengthSqr(void) const
@@ -137,7 +138,7 @@ public:
 	bool WithinAABox(Vector const &boxmin, Vector const &boxmax);
 
 	// Get the distance from this vector to the other one.
-	vec_t	DistTo(const Vector &vOther) const;
+	vec_t DistTo(const Vector &vOther) const;
 
 	// Get the distance from this vector to the other one squared.
 	// NJS: note, VC wasn't inlining it correctly in several deeply nested inlines due to being an 'out of line' .  
@@ -154,56 +155,55 @@ public:
 	}
 
 	// Copy
-	void	CopyToArray(float* rgfl) const;
+	void CopyToArray(float* rgfl) const;
 
 	// Multiply, add, and assign to this (ie: *this = a + b * scalar). This
 	// is about 12% faster than the actual vector equation (because it's done per-component
 	// rather than per-vector).
-	void	MulAdd(const Vector& a, const Vector& b, float scalar);
+	void MulAdd(const Vector& a, const Vector& b, float scalar);
 
 	// Dot product.
-	vec_t	Dot(const Vector& vOther) const;
+	vec_t Dot(const Vector& vOther) const;
 
 	// assignment
 	Vector& operator=(const Vector &vOther);
 
 	// 2d
-	vec_t	Length2D(void) const
+	vec_t Length2D(void) const
 	{
 		return sqrt(x * x + y * y);
 	}
-	vec_t	Length2DSqr(void) const;
+	vec_t Length2DSqr(void) const;
 
 	/// get the component of this vector parallel to some other given vector
-	Vector  ProjectOnto(const Vector& onto);
+	Vector ProjectOnto(const Vector& onto);
 
 	// copy constructors
 	//	Vector(const Vector &vOther);
 
 	// arithmetic operations
-	Vector	operator-(void) const;
+	Vector operator-(void) const;
 
-	Vector	operator+(const Vector& v) const;
-	Vector	operator-(const Vector& v) const;
-	Vector	operator*(const Vector& v) const;
-	Vector	operator/(const Vector& v) const;
-	Vector	operator*(float fl) const;
-	Vector	operator/(float fl) const;
+	Vector operator+(const Vector& v) const;
+	Vector operator-(const Vector& v) const;
+	Vector operator*(const Vector& v) const;
+	Vector operator/(const Vector& v) const;
+	Vector operator*(float fl) const;
+	Vector operator/(float fl) const;
 
 	// Cross product between two vectors.
-	Vector	Cross(const Vector &vOther) const;
+	Vector Cross(const Vector &vOther) const;
 
 	// Returns a vector with the min or max in X, Y, and Z.
-	Vector	Min(const Vector &vOther) const;
-	Vector	Max(const Vector &vOther) const;
+	Vector Min(const Vector &vOther) const;
+	Vector Max(const Vector &vOther) const;
 };
 
-void VectorCopy(const Vector& src, Vector& dst);
+void  VectorCopy(const Vector& src, Vector& dst);
 float VectorLength(const Vector& v);
-void VectorLerp(const Vector& src1, const Vector& src2, vec_t t, Vector& dest);
-void VectorCrossProduct(const Vector& a, const Vector& b, Vector& result);
+void  VectorLerp(const Vector& src1, const Vector& src2, vec_t t, Vector& dest);
+void  VectorCrossProduct(const Vector& a, const Vector& b, Vector& result);
 vec_t NormalizeVector(Vector& v);
-
 
 class __declspec(align(16)) VectorAligned : public Vector
 {
@@ -228,6 +228,7 @@ public:
 
 	VectorAligned& operator=(const VectorAligned &vOther)
 	{
+		_mm_store_ps(Base(), _mm_load_ps(vOther.Base()));
 		return *this;
 	}
 
