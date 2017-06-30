@@ -2,6 +2,7 @@
 
 #include "Colors.h"
 
+#include <algorithm>
 #include <iostream>
 #include <string>
 #include <sstream>
@@ -59,6 +60,8 @@ bool GetLatestVersion(CURL* &curl, std::string &latestversion)
 		curl_easy_cleanup(curl);
 		return false;
 	}
+
+	latestversion.erase(std::remove(latestversion.begin(), latestversion.end(), '\n'), latestversion.end());
 
 	return true;
 }
