@@ -21,7 +21,14 @@ namespace Options
 		const char* name;
 	};
 
+	struct key_t
+	{
+		ButtonCode_t key;
+		const char* name;
+	};
+
 	extern std::vector<bone_t> bones;
+	extern std::vector<key_t> keys;
 
 	namespace Aim
 	{

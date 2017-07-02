@@ -2,6 +2,9 @@
 
 namespace Options
 {
+	std::vector<bone_t> bones;
+	std::vector<key_t> keys;
+
 	void Init()
 	{
 		bones.push_back({ Bone::BONE_HEAD, "head" });
@@ -11,6 +14,11 @@ namespace Options
 		bones.push_back({ Bone::BONE_LOWER_SPINAL_COLUMN, "stomach" });
 		bones.push_back({ Bone::BONE_HIP, "hip" });
 		bones.push_back({ Bone::BONE_PELVIS, "pelvis" });
+
+		keys.push_back({ ButtonCode_t::MOUSE_4, "mouse4" });
+		keys.push_back({ ButtonCode_t::MOUSE_5, "mouse5" });
+		keys.push_back({ ButtonCode_t::MOUSE_MIDDLE, "mouse3" });
+		keys.push_back({ ButtonCode_t::KEY_LALT, "alt" });
 	}
 
 	void Unload()
@@ -30,8 +38,6 @@ namespace Options
 
 	bool bMainWindowOpen = false;
 
-	std::vector<bone_t> bones;
-
 	namespace Aim
 	{
 		bool bAimbotEnabled = false;
@@ -47,7 +53,7 @@ namespace Options
 		bool bOnAimkey = false;
 		int nAimkey = ButtonCode_t::MOUSE_4;
 
-		int nBone = static_cast<int>(Bone::BONE_NECK);
+		int nBone = Bone::BONE_NECK;
 
 		bool bVisibleCheck = true;
 

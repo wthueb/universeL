@@ -24,19 +24,28 @@ void DrawInterface()
 		ImGui::Separator();
 		ImGui::Checkbox(XorStr("on shoot"), &Options::Aim::bOnShoot);
 		ImGui::Checkbox(XorStr("on aimkey"), &Options::Aim::bOnAimkey);
-		ImGui::InputInt(XorStr("aimkey"), &Options::Aim::nAimkey);
-		ImGui::Text(XorStr("%s"), XorStr("mouse4 = 110"));
+
+		static int aimkey_selection = 0;
+
+		ImGui::Combo(XorStr("aimkey"), &aimkey_selection, [](void* data, int idx, const char** out_text)
+		{
+			*out_text = Options::keys.at(idx).name;
+			return true;
+		}, nullptr, Options::keys.size());
+
+		Options::Aim::nAimkey = Options::keys.at(aimkey_selection).key;
+
 		ImGui::Separator();
 
-		static int selection = 0;
+		static int bone_selection = 1;
 
-		ImGui::Combo(XorStr("bone"), &selection, [](void* data, int idx, const char** out_text)
+		ImGui::Combo(XorStr("bone"), &bone_selection, [](void* data, int idx, const char** out_text)
 		{
 			*out_text = Options::bones.at(idx).name;
 			return true;
 		}, nullptr, Options::bones.size());
 
-		Options::Aim::nBone = Options::bones.at(selection).bone;
+		Options::Aim::nBone = Options::bones.at(bone_selection).bone;
 
 		ImGui::Separator();
 		ImGui::Checkbox(XorStr("visible check"), &Options::Aim::bVisibleCheck);
