@@ -38,6 +38,7 @@ namespace Options
 
 		bool bVisibleCheck = true;
 
+		bool bReAim = false;
 		bool bLockOnFriendly = false;
 	}
 

@@ -17,9 +17,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="SDK\CRC.cpp">
-      <Filter>SDK</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\SDK.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
@@ -80,6 +77,9 @@
     <ClCompile Include="universeL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\CRC.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooks.h">
@@ -95,9 +95,6 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Color.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\CRC.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Definitions.h">
@@ -245,6 +242,9 @@
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\VMatrix.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\CRC.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>

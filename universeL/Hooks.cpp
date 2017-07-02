@@ -14,7 +14,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 12
-#define VERSION_PATCH 2
+#define VERSION_PATCH 3
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -157,6 +157,7 @@ namespace Hooks
 					ImGui::Separator();
 					ImGui::Checkbox(XorStr("visible check"), &Options::Aim::bVisibleCheck);
 					ImGui::Separator();
+					ImGui::Checkbox(XorStr("re-aim"), &Options::Aim::bReAim);
 					ImGui::Checkbox(XorStr("lock on teammates"), &Options::Aim::bLockOnFriendly);
 				}
 

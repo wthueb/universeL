@@ -56,7 +56,7 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 		if ((Options::Aim::bOnShoot && cmd->buttons & IN_ATTACK) ||
 			(Options::Aim::bOnAimkey && Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey))))
 		{
-			if (!found)
+			if (!found || Options::Aim::bReAim)
 			{
 				FindTarget();
 				found = true;

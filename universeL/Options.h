@@ -31,6 +31,7 @@ namespace Options
 
 		extern bool bVisibleCheck;
 
+		extern bool bReAim;
 		extern bool bLockOnFriendly;
 	}
 
