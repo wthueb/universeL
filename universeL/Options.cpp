@@ -15,6 +15,7 @@ namespace Options
 		bones.push_back({ Bone::BONE_HIP, "hip" });
 		bones.push_back({ Bone::BONE_PELVIS, "pelvis" });
 
+		keys.push_back({ ButtonCode_t::KEY_XBUTTON_RTRIGGER, "none" }); // xd
 		keys.push_back({ ButtonCode_t::MOUSE_4, "mouse4" });
 		keys.push_back({ ButtonCode_t::MOUSE_5, "mouse5" });
 		keys.push_back({ ButtonCode_t::MOUSE_MIDDLE, "mouse3" });
