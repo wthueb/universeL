@@ -14,7 +14,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 12
-#define VERSION_PATCH 3
+#define VERSION_PATCH 4
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -144,6 +144,7 @@ namespace Hooks
 					ImGui::InputFloat(XorStr("fov"), &Options::Aim::flFov, 0.f, 0.f, 1);
 					Options::Aim::flFov = min(max(0.f, Options::Aim::flFov), 180.f);
 					ImGui::Checkbox(XorStr("smooth"), &Options::Aim::bSmooth);
+					ImGui::Checkbox(XorStr("smooth rcs (experimental)"), &Options::Aim::bSmoothRCS);
 					ImGui::SliderFloat(XorStr("smooth amount"), &Options::Aim::flSmooth, 1.f, 10.f, "%.1f");
 					//ImGui::Checkbox(XorStr("silent"), &Options::Aim::bSilent);
 					ImGui::Separator();

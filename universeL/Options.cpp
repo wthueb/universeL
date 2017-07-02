@@ -26,6 +26,7 @@ namespace Options
 		
 		float flFov = 1.f;
 		bool bSmooth = true;
+		bool bSmoothRCS = false;
 		float flSmooth = 2.f;
 
 		bool bSilent = false;

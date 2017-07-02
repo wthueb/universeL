@@ -19,6 +19,7 @@ namespace Options
 		
 		extern float flFov;
 		extern bool bSmooth;
+		extern bool bSmoothRCS;
 		extern float flSmooth;
 
 		extern bool bSilent;
