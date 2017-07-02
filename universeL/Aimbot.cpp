@@ -196,7 +196,7 @@ void CorrectAim()
 
 bool IsVisible(C_BasePlayer* player)
 {
-	using LineGoesThroughSmokeFn = bool(__cdecl*)(Vector, Vector, short);
+	using LineGoesThroughSmokeFn = bool(__cdecl*)(Vector, Vector, bool);
 	
 	static LineGoesThroughSmokeFn LineGoesThroughSmoke =
 		reinterpret_cast<LineGoesThroughSmokeFn>(Utils::FindSignature(XorStr("client.dll"), XorStr("55 8B EC 83 EC 08 8B 15 ? ? ? ? 0F 57 C0")));
@@ -204,7 +204,7 @@ bool IsVisible(C_BasePlayer* player)
 	Vector start = localplayer->GetEyePosition();
 	Vector end = player->GetBonePosition(Options::Aim::nBone);
 
-	if (LineGoesThroughSmoke(start, end, 1))
+	if (LineGoesThroughSmoke(start, end, true))
 		return false;
 
 	Ray_t ray;
