@@ -19,6 +19,7 @@ namespace Options
 		keys.push_back({ ButtonCode_t::MOUSE_5, "mouse5" });
 		keys.push_back({ ButtonCode_t::MOUSE_MIDDLE, "mouse3" });
 		keys.push_back({ ButtonCode_t::KEY_LALT, "alt" });
+		keys.push_back({ ButtonCode_t::KEY_W, "w" } );
 	}
 
 	void Unload()
