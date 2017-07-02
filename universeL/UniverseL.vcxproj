@@ -158,6 +158,7 @@
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="ESP.h" />
     <ClInclude Include="Fonts.h" />
+    <ClInclude Include="Interface.h" />
     <ClInclude Include="Hacks.h" />
     <ClInclude Include="Hooks.h" />
     <ClInclude Include="ImGui\imconfig.h" />

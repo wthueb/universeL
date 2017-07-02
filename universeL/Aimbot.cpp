@@ -90,14 +90,6 @@ void RCS()
 
 		ClampAngle(dst);
 
-		if (Options::Aim::bSmoothRCS)
-		{
-			QAngle delta = dst - cmd->viewangles;
-			ClampAngle(delta);
-			delta /= max(Options::Aim::flSmooth, 1.f);
-			dst = cmd->viewangles + delta;
-		}
-
 		cmd->viewangles = dst;
 
 		oldangle = aimpunch;

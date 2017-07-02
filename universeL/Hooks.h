@@ -18,7 +18,7 @@ namespace Hooks
 {
 	void Init();
 	void Restore();
-	
+
 	void GUI_Init(IDirect3DDevice9* pDevice);
 
 	// hook prototypes
@@ -34,10 +34,12 @@ namespace Hooks
 	bool      __stdcall  hkCreateMove(float sample_input_frametime, CUserCmd* cmd);
 	void      __fastcall hkPaintTraverse(void* thisptr, void*, VPANEL vgui_panel, bool force_repaint, bool allow_force);
 	void      __stdcall  hkPlaySound(const char* szFileName);
-	
+
 	// have to hook WndProc to get user input to pass to the gui
 	LRESULT   __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	// handle to csgo window
 	extern HWND hWindow;
+
+	extern char name[32];
 }

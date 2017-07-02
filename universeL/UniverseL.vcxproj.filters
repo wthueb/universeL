@@ -247,5 +247,8 @@
     <ClInclude Include="SDK\CRC.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

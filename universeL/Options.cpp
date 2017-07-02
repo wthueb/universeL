@@ -2,6 +2,17 @@
 
 namespace Options
 {
+	void Init()
+	{
+		bones.push_back({ Bone::BONE_HEAD, "head" });
+		bones.push_back({ Bone::BONE_NECK, "neck" });
+		bones.push_back({ Bone::BONE_UPPER_SPINAL_COLUMN, "chest" });
+		bones.push_back({ Bone::BONE_MIDDLE_SPINAL_COLUMN, "nips xd" });
+		bones.push_back({ Bone::BONE_LOWER_SPINAL_COLUMN, "stomach" });
+		bones.push_back({ Bone::BONE_HIP, "hip" });
+		bones.push_back({ Bone::BONE_PELVIS, "pelvis" });
+	}
+
 	void Unload()
 	{
 		Options::Aim::bAimbotEnabled = false;
@@ -19,6 +30,8 @@ namespace Options
 
 	bool bMainWindowOpen = false;
 
+	std::vector<bone_t> bones;
+
 	namespace Aim
 	{
 		bool bAimbotEnabled = false;
@@ -26,7 +39,6 @@ namespace Options
 		
 		float flFov = 1.f;
 		bool bSmooth = true;
-		bool bSmoothRCS = false;
 		float flSmooth = 2.f;
 
 		bool bSilent = false;

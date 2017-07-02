@@ -4,13 +4,24 @@
 
 #include "SDK\IInputSystem.h"
 
+#include <vector>
+
 namespace Options
 {
+	void Init();
 	void Unload();
 	
 	// all vars here must be declared in Options.cpp and *should* be implemented in the gui
 
 	extern bool bMainWindowOpen;
+
+	struct bone_t
+	{
+		Bone bone;
+		const char* name;
+	};
+
+	extern std::vector<bone_t> bones;
 
 	namespace Aim
 	{
@@ -19,7 +30,6 @@ namespace Options
 		
 		extern float flFov;
 		extern bool bSmooth;
-		extern bool bSmoothRCS;
 		extern float flSmooth;
 
 		extern bool bSilent;
