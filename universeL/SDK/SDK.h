@@ -15,6 +15,7 @@
 #include "ICvar.h"
 #include "IEngineTrace.h"
 #include "IEngineVGui.h"
+#include "IGameEventManager2.h"
 #include "IInputSystem.h"
 #include "IMaterial.h"
 #include "IPanel.h"
@@ -32,6 +33,7 @@ class Interfaces
 public:
     static IVEngineClient*        Engine();
     static IBaseClientDLL*        Client();
+	static IGameEventManager2*    GameEventManager();
     static IClientEntityList*     EntityList();
     static IClientMode*           ClientMode();
     static CGlobalVarsBase*       GlobalVars();
@@ -47,6 +49,7 @@ public:
 private:
     static IVEngineClient*        pEngine;
     static IBaseClientDLL*        pClient;
+	static IGameEventManager2*    pGameEventManager;
     static IClientEntityList*     pEntityList;
 	static IClientMode*           pClientMode;
     static CGlobalVarsBase*       pGlobals;

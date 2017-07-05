@@ -140,7 +140,8 @@ enum EItemDefinitionIndex
     weapon_knife_falchion = 512,
     weapon_knife_survival_bowie = 514,
     weapon_knife_butterfly = 515,
-    weapon_knife_push = 516
+    weapon_knife_push = 516,
+	glove_sporty = 5030
 };
 
 enum CSWeaponType

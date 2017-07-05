@@ -4,3 +4,4 @@
 #include "AutoAccept.h"
 #include "Bhop.h"
 #include "ESP.h"
+#include "SkinChanger.h"

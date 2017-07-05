@@ -19,6 +19,8 @@ extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, 
 namespace Hooks
 {
 	std::unique_ptr<VFTableHook>        pD3DDevice9Hook = nullptr;
+	std::unique_ptr<VFTableHook>        pBaseClientHook = nullptr;
+	std::unique_ptr<VFTableHook>        pGameEventManagerHook = nullptr;
 	std::unique_ptr<VFTableHook>        pClientModeHook = nullptr;
 	std::unique_ptr<VFTableHook>        pVGUIPanelHook = nullptr; 
 	std::unique_ptr<VFTableHook>        pMatSurfaceHook = nullptr;
@@ -28,6 +30,8 @@ namespace Hooks
 	EndSceneFn                          oEndScene = nullptr;
 	ResetFn                             oReset = nullptr;
 	CreateMoveFn                        oCreateMove = nullptr;
+	FrameStageNotifyFn                  oFrameStageNotify = nullptr;
+	FireEventClientSideFn               oFireEventClientSide = nullptr;
 	PaintTraverseFn                     oPaintTraverse = nullptr;
 	PlaySoundFn                         oPlaySound = nullptr;
 
@@ -41,7 +45,7 @@ namespace Hooks
 
 	void Init()
 	{
-		//AllocConsole();
+		AllocConsole();
 		AttachConsole(GetCurrentProcessId());
 		FILE* newstdout;
 		freopen_s(&newstdout, "CON", "w", stdout);
@@ -58,6 +62,8 @@ namespace Hooks
 		uint32_t dwDevice = **reinterpret_cast<uint32_t**>(Utils::FindSignature(XorStr("shaderapidx9.dll"), XorStr("A1 ? ? ? ? 50 8B 08 FF 51 0C")) + 1);
 
 		pD3DDevice9Hook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(dwDevice), true);
+		pBaseClientHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::Client()), true);
+		pGameEventManagerHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::GameEventManager()), true);
 		pClientModeHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::ClientMode()), true);
 		pVGUIPanelHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::VGUIPanel()), true);
 		pMatSurfaceHook = std::make_unique<VFTableHook>(reinterpret_cast<DWORD**>(Interfaces::MatSurface()), true);
@@ -70,6 +76,8 @@ namespace Hooks
 		oReset = pD3DDevice9Hook->Hook(16, hkReset);
 		oEndScene = pD3DDevice9Hook->Hook(42, hkEndScene);
 		oCreateMove = pClientModeHook->Hook(24, reinterpret_cast<CreateMoveFn>(hkCreateMove));
+		oFrameStageNotify = pBaseClientHook->Hook(36, reinterpret_cast<FrameStageNotifyFn>(hkFrameStageNotify));
+		oFireEventClientSide = pGameEventManagerHook->Hook(9, reinterpret_cast<FireEventClientSideFn>(hkFireEventClientSide));
 		oPaintTraverse = pVGUIPanelHook->Hook(41, reinterpret_cast<PaintTraverseFn>(hkPaintTraverse));
 		oPlaySound = pMatSurfaceHook->Hook(82, reinterpret_cast<PlaySoundFn>(hkPlaySound));
 
@@ -127,7 +135,6 @@ namespace Hooks
 		}
 		else
 		{
-			// FIXMEW: put in own file & make prettier
 			ImGui::GetIO().MouseDrawCursor = Options::bMainWindowOpen;
 
 			ImGui_ImplDX9_NewFrame();
@@ -178,8 +185,20 @@ namespace Hooks
 
 		return ret;
 	}
+
+	void __stdcall hkFrameStageNotify(ClientFrameStage_t stage)
+	{
+		SkinChanger::FrameStageNotify(stage);
+
+		oFrameStageNotify(Interfaces::Client(), stage);
+	}
+
+	bool __fastcall hkFireEventClientSide(void* thisptr, void* edx, IGameEvent* event)
+	{
+		return oFireEventClientSide(thisptr, event);;
+	}
 	
-	void __fastcall hkPaintTraverse(void* thisptr, void*, VPANEL vguiPanel, bool forceRepaint, bool allowForce)
+	void __fastcall hkPaintTraverse(void* thisptr, void* edx, VPANEL vguiPanel, bool forceRepaint, bool allowForce)
 	{
 		oPaintTraverse(thisptr, vguiPanel, forceRepaint, allowForce);
 

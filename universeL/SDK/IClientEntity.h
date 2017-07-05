@@ -175,13 +175,13 @@ public:
 
 	IClientNetworkable* GetNetworkable()
 	{
-		return reinterpret_cast<IClientNetworkable*>(reinterpret_cast<uintptr_t>(this) + 0x10);
+		return reinterpret_cast<IClientNetworkable*>(reinterpret_cast<uintptr_t>(this) + 0x8);
 	}
 
 	void SetModelIndex(int index)
 	{
 		using oSetModelIndex = void(__thiscall*)(void*, int);
-		return CallVFunction<oSetModelIndex>(this, 111)(this, index);
+		return CallVFunction<oSetModelIndex>(this, 75)(this, index);
 	}
 
 	int* GetModelIndex()
@@ -485,6 +485,12 @@ public:
 	int* GetFallbackStatTrak()
 	{
 		return reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"), XorStr("m_nFallbackStatTrak")));
+	}
+
+	int* GetAccountID()
+	{
+		return reinterpret_cast<int*>(reinterpret_cast<uintptr_t>(this) + GET_NETVAR(XorStr("DT_BaseAttributableItem"),
+			XorStr("m_AttributeManager"), XorStr("m_Item"), XorStr("m_iAccountID")));
 	}
 };
 

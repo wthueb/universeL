@@ -148,6 +148,7 @@
     <ClCompile Include="SDK\Vector2D.cpp" />
     <ClCompile Include="SDK\Vector4D.cpp" />
     <ClCompile Include="SDK\VMatrix.cpp" />
+    <ClCompile Include="SkinChanger.cpp" />
     <ClCompile Include="universeL.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -186,6 +187,7 @@
     <ClInclude Include="SDK\ICvar.h" />
     <ClInclude Include="SDK\IEngineTrace.h" />
     <ClInclude Include="SDK\IEngineVGui.h" />
+    <ClInclude Include="SDK\IGameEventManager2.h" />
     <ClInclude Include="SDK\IHandleEntity.h" />
     <ClInclude Include="SDK\IInputSystem.h" />
     <ClInclude Include="SDK\IMaterial.h" />
@@ -204,6 +206,7 @@
     <ClInclude Include="SDK\Vector2D.h" />
     <ClInclude Include="SDK\Vector4D.h" />
     <ClInclude Include="SDK\VMatrix.h" />
+    <ClInclude Include="SkinChanger.h" />
     <ClInclude Include="Utils.h" />
     <ClInclude Include="VFTableHook.h" />
     <ClInclude Include="XorStr.h" />

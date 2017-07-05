@@ -3,21 +3,20 @@
 #include "..\Utils.h"
 #include "..\XorStr.h"
 
-
-IVEngineClient*     Interfaces::pEngine = nullptr;
-IBaseClientDLL*     Interfaces::pClient = nullptr;
-IClientEntityList*  Interfaces::pEntityList = nullptr;
-IClientMode*        Interfaces::pClientMode = nullptr;
-CGlobalVarsBase*    Interfaces::pGlobals = nullptr;
-IInputSystem*		Interfaces::pInputSystem = nullptr;
-IPanel*             Interfaces::pVGUIPanel = nullptr;
-ISurface*           Interfaces::pMatSurface = nullptr;
-IVDebugOverlay*     Interfaces::pDebugOverlay = nullptr;
-CGlowObjectManager* Interfaces::pGlowObjManager = nullptr;
-IVModelInfo*		Interfaces::pModelInfo = nullptr;
-IEngineTrace*       Interfaces::pEngineTrace = nullptr;
-ICvar*              Interfaces::pCVar = nullptr;
-
+IVEngineClient*      Interfaces::pEngine = nullptr;
+IBaseClientDLL*      Interfaces::pClient = nullptr;
+IGameEventManager2*  Interfaces::pGameEventManager = nullptr;
+IClientEntityList*   Interfaces::pEntityList = nullptr;
+IClientMode*         Interfaces::pClientMode = nullptr;
+CGlobalVarsBase*     Interfaces::pGlobals = nullptr;
+IInputSystem*		 Interfaces::pInputSystem = nullptr;
+IPanel*              Interfaces::pVGUIPanel = nullptr;
+ISurface*            Interfaces::pMatSurface = nullptr;
+IVDebugOverlay*      Interfaces::pDebugOverlay = nullptr;
+CGlowObjectManager*  Interfaces::pGlowObjManager = nullptr;
+IVModelInfo*		 Interfaces::pModelInfo = nullptr;
+IEngineTrace*        Interfaces::pEngineTrace = nullptr;
+ICvar*               Interfaces::pCVar = nullptr;
 
 CreateInterfaceFn GetFactory(HMODULE hMod)
 {
@@ -29,7 +28,6 @@ T* CaptureInterface(CreateInterfaceFn f, const char* szInterfaceVersion)
 {
     return static_cast<T*>(f(szInterfaceVersion, NULL));
 }
-
 
 IVEngineClient* Interfaces::Engine()
 {
@@ -49,6 +47,16 @@ IBaseClientDLL* Interfaces::Client()
         pClient = CaptureInterface<IBaseClientDLL>(pfnFactory, XorStr("VClient018"));
     }
     return pClient;
+}
+
+IGameEventManager2* Interfaces::GameEventManager()
+{
+	if (!pGameEventManager)
+	{
+		CreateInterfaceFn pfnFactory = GetFactory(GetModuleHandleA(XorStr("engine.dll")));
+		pGameEventManager = CaptureInterface<IGameEventManager2>(pfnFactory, XorStr("GAMEEVENTSMANAGER002"));
+	}
+	return pGameEventManager;
 }
 
 IClientEntityList* Interfaces::EntityList()

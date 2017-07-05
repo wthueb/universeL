@@ -27,16 +27,20 @@ namespace Hooks
 	using CreateMoveFn = bool(__thiscall*)(void*, float, CUserCmd*);
 	using PaintTraverseFn = void(__thiscall*)(void*, VPANEL, bool, bool);
 	using PlaySoundFn = void(__thiscall*)(void*, const char*);
+	using FrameStageNotifyFn = void(__thiscall*)(void*, ClientFrameStage_t);
+	using FireEventClientSideFn = bool(__thiscall*)(void*, IGameEvent*);
 
 	// hooked functions
-	HRESULT   __stdcall  hkEndScene(IDirect3DDevice9* pDevice);
-	HRESULT   __stdcall  hkReset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters);
-	bool      __stdcall  hkCreateMove(float sample_input_frametime, CUserCmd* cmd);
-	void      __fastcall hkPaintTraverse(void* thisptr, void*, VPANEL vgui_panel, bool force_repaint, bool allow_force);
-	void      __stdcall  hkPlaySound(const char* szFileName);
+	HRESULT  __stdcall   hkEndScene(IDirect3DDevice9* pDevice);
+	HRESULT  __stdcall   hkReset(IDirect3DDevice9* pDevice, D3DPRESENT_PARAMETERS* pPresentationParameters);
+	bool     __stdcall   hkCreateMove(float sample_input_frametime, CUserCmd* cmd);
+	void     __stdcall   hkFrameStageNotify(ClientFrameStage_t stage);
+	bool     __fastcall  hkFireEventClientSide(void* thisptr, void* edx, IGameEvent* event);
+	void     __fastcall  hkPaintTraverse(void* thisptr, void* edx, VPANEL vgui_panel, bool force_repaint, bool allow_force);
+	void     __stdcall   hkPlaySound(const char* szFileName);
 
 	// have to hook WndProc to get user input to pass to the gui
-	LRESULT   __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
+	LRESULT __stdcall hkWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam);
 
 	// handle to csgo window
 	extern HWND hWindow;
