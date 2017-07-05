@@ -11,8 +11,8 @@
 #include "ImGui\imgui_impl_dx9.h"
 
 #define VERSION_MAJOR 0
-#define VERSION_MINOR 12
-#define VERSION_PATCH 7
+#define VERSION_MINOR 13
+#define VERSION_PATCH 0
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -45,7 +45,7 @@ namespace Hooks
 
 	void Init()
 	{
-		AllocConsole();
+		//AllocConsole();
 		AttachConsole(GetCurrentProcessId());
 		FILE* newstdout;
 		freopen_s(&newstdout, "CON", "w", stdout);
