@@ -1,8 +1,5 @@
 #include "SkinChanger.h"
 
-bool glovesupdated;
-bool shouldfullupdate;
-
 inline int RandomInt(int low, int high)
 {
 	return rand() % (high - low + 1) + low;
@@ -13,12 +10,14 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	if (stage != FRAME_NET_UPDATE_POSTDATAUPDATE_START)
 		return;
 
-	auto localplayer = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(Interfaces::Engine()->GetLocalPlayer()));
-	if (!localplayer)
+	if (!Interfaces::Engine()->IsInGame())
 		return;
 
-	player_info_t playerinfo;
-	if (!Interfaces::Engine()->GetPlayerInfo(Interfaces::Engine()->GetLocalPlayer(), &playerinfo))
+	static bool glovesupdated = false;
+	static bool shouldfullupdate = false;
+
+	auto localplayer = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(Interfaces::Engine()->GetLocalPlayer()));
+	if (!localplayer)
 		return;
 
 	if (!localplayer->IsAlive())
@@ -33,10 +32,15 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 		return;
 	}
 
+	player_info_t playerinfo;
+	if (!Interfaces::Engine()->GetPlayerInfo(Interfaces::Engine()->GetLocalPlayer(), &playerinfo))
+		return;
+
 	auto glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
+
 	if (!glove)
 	{
-		for (ClientClass *pClass = Interfaces::Client()->GetAllClasses(); pClass; pClass = pClass->m_pNext)
+		for (ClientClass* pClass = Interfaces::Client()->GetAllClasses(); pClass; pClass = pClass->m_pNext)
 		{
 			if (pClass->m_ClassID != EClassIds::CEconWearable)
 				continue;
@@ -52,23 +56,25 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 
 			glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
 
+			if (*glove->GetItemDefinitionIndex() != EItemDefinitionIndex::glove_sporty)
+			{
+				glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex("models/weapons/v_models/arms/glove_sporty/v_glove_sporty.mdl"));
+				*glove->GetItemDefinitionIndex() = EItemDefinitionIndex::glove_sporty;
+			}
+
 			break;
 		}
 	}
 
-	if (*glove->GetItemDefinitionIndex() != EItemDefinitionIndex::glove_sporty)
-	{
-		glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex("models/weapons/v_models/arms/glove_sporty/v_glove_sporty.mdl"));
-		*glove->GetItemDefinitionIndex() = EItemDefinitionIndex::glove_sporty;
-	}
-
+	*glove->GetItemDefinitionIndex() = EItemDefinitionIndex::glove_sporty;
 	*glove->GetFallbackPaintKit() = 10018;
-	*glove->GetFallbackWear() = 0.000002f;
+	*glove->GetFallbackWear() = 0.0001f;
 
 	*glove->GetFallbackSeed() = 0;
 	*glove->GetFallbackStatTrak() = -1;
 	*glove->GetEntityQuality() = 4;
-	*glove->GetItemIDHigh() = -1;
+
+	*glove->GetItemIDHigh() = -1; // use fallback values
 	*glove->GetAccountID() = playerinfo.xuidlow;
 
 	if (glovesupdated)
