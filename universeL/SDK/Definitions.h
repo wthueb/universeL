@@ -141,7 +141,14 @@ enum EItemDefinitionIndex
     weapon_knife_survival_bowie = 514,
     weapon_knife_butterfly = 515,
     weapon_knife_push = 516,
-	glove_sporty = 5030
+	studded_bloodhound_gloves = 5027,
+	t_gloves = 5028,
+	ct_gloves = 5029,
+	sporty_gloves = 5030,
+	slick_gloves = 5031,
+	leather_handwraps = 5032,
+	motorcycle_gloves = 5033,
+	specialist_gloves = 5034
 };
 
 enum CSWeaponType

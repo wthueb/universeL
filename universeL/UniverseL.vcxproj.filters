@@ -83,6 +83,9 @@
     <ClCompile Include="SkinChanger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="PaintKitParser.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooks.h">
@@ -257,6 +260,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDK\IGameEventManager2.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintKitParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\ILocalize.h">
       <Filter>SDK</Filter>
     </ClInclude>
   </ItemGroup>

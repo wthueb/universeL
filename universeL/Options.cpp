@@ -85,6 +85,18 @@ namespace Options
 		float fAllyColor[4] = { 0.0f, 1.0f, 0.0f, 1.0f };
 		float fEnemyColor[4] = { 1.0f, 0.0f, 0.0f, 1.0f };
 	}
+
+	namespace Skins
+	{
+		namespace Gloves
+		{
+			bool bEnabled = true;
+
+			int nItemDefinitionIndex = 5030; // sport gloves
+			int nPaintkit = 10018; // superconductor
+			float flWear = 0.000001f;
+		}
+	}
 	
 	namespace Misc
 	{

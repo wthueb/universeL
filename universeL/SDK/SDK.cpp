@@ -17,6 +17,7 @@ CGlowObjectManager*  Interfaces::pGlowObjManager = nullptr;
 IVModelInfo*		 Interfaces::pModelInfo = nullptr;
 IEngineTrace*        Interfaces::pEngineTrace = nullptr;
 ICvar*               Interfaces::pCVar = nullptr;
+ILocalize*           Interfaces::pLocalize = nullptr;
 
 CreateInterfaceFn GetFactory(HMODULE hMod)
 {
@@ -151,7 +152,7 @@ IVModelInfo* Interfaces::ModelInfo()
 
 IEngineTrace* Interfaces::EngineTrace()
 {
-    if(!pEngineTrace)
+    if (!pEngineTrace)
 	{
         CreateInterfaceFn pfnFactory = GetFactory(GetModuleHandleA(XorStr("engine.dll")));
         pEngineTrace = CaptureInterface<IEngineTrace>(pfnFactory, XorStr("EngineTraceClient004"));
@@ -161,10 +162,20 @@ IEngineTrace* Interfaces::EngineTrace()
 
 ICvar* Interfaces::CVar()
 {
-    if(!pCVar)
+    if (!pCVar)
 	{
         CreateInterfaceFn pfnFactory = GetFactory(GetModuleHandleA(XorStr("vstdlib.dll")));
         pCVar = CaptureInterface<ICvar>(pfnFactory, XorStr("VEngineCvar007"));
     }
     return pCVar;
+}
+
+ILocalize* Interfaces::Localize()
+{
+	if (!pLocalize)
+	{
+		CreateInterfaceFn pfnFactory = GetFactory(GetModuleHandleA(XorStr("localize.dll")));
+		pLocalize = CaptureInterface<ILocalize>(pfnFactory, XorStr("Localize_001"));
+	}
+	return pLocalize;
 }

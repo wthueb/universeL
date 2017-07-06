@@ -1,5 +1,48 @@
 #include "SkinChanger.h"
 
+#include "Options.h"
+#include "PaintKitParser.h"
+
+#include <map>
+#include <vector>
+
+const std::map<size_t, SkinChanger::Item_t> gloveinfo =
+{
+	{ 5027, { "Bloodhound Gloves", "studded_bloodhound_gloves", "models/weapons/v_models/arms/glove_bloodhound/v_glove_bloodhound.mdl" } },
+	{ 5028, { "T Gloves", "t_gloves", "models/weapons/v_models/arms/glove_fingerless/v_glove_fingerless.mdl" } },
+	{ 5029, { "CT Gloves", "ct_gloves", "models/weapons/v_models/arms/glove_hardknuckle/v_glove_hardknuckle.mdl" } },
+	{ 5030, { "Sport Gloves", "sporty_gloves", "models/weapons/v_models/arms/glove_sporty/v_glove_sporty.mdl" } },
+	{ 5031, { "Driver Gloves", "slick_gloves", "models/weapons/v_models/arms/glove_slick/v_glove_slick.mdl" } },
+	{ 5032, { "Hand Wraps", "leather_handwraps", "models/weapons/v_models/arms/glove_handwrap_leathery/v_glove_handwrap_leathery.mdl" } },
+	{ 5033, { "Moto Gloves", "motorcycle_gloves", "models/weapons/v_models/arms/glove_motorcycle/v_glove_motorcycle.mdl" } },
+	{ 5034, { "Specialist Gloves", "specialist_gloves", "models/weapons/v_models/arms/glove_specialist/v_glove_specialist.mdl" } }
+};
+
+const std::vector<SkinChanger::WeaponName_t> SkinChanger::glovenames =
+{
+	{ 5027, "Bloodhound Gloves" },
+	{ 5030, "Sport Gloves" },
+	{ 5031, "Driver Gloves" },
+	{ 5032, "Hand Wraps" },
+	{ 5033, "Moto Gloves" },
+	{ 5034, "Specialist Gloves" }
+};
+
+const std::vector<SkinChanger::QualityName_t> SkinChanger::qualities =
+{
+	{ 0, "Default" },
+	{ 1, "Genuine" },
+	{ 2, "Vintage" },
+	{ 3, "Unusual" },
+	{ 5, "Community" },
+	{ 6, "Developer" },
+	{ 7, "Self-Made" },
+	{ 8, "Customized" },
+	{ 9, "Strange" },
+	{ 10, "Completed" },
+	{ 12, "Tournament" }
+};
+
 inline int RandomInt(int low, int high)
 {
 	return rand() % (high - low + 1) + low;
@@ -10,7 +53,7 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	if (stage != FRAME_NET_UPDATE_POSTDATAUPDATE_START)
 		return;
 
-	if (!Interfaces::Engine()->IsInGame())
+	if (!Interfaces::Engine()->IsInGame() || !Options::Skins::Gloves::bEnabled)
 		return;
 
 	static bool glovesupdated = false;
@@ -56,20 +99,24 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 
 			glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
 
-			if (*glove->GetItemDefinitionIndex() != EItemDefinitionIndex::glove_sporty)
-			{
-				glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex("models/weapons/v_models/arms/glove_sporty/v_glove_sporty.mdl"));
-				*glove->GetItemDefinitionIndex() = EItemDefinitionIndex::glove_sporty;
+			if (*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex)
+			{	
+				if (gloveinfo.find(Options::Skins::Gloves::nItemDefinitionIndex) != gloveinfo.end())
+					glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex(gloveinfo.at(Options::Skins::Gloves::nItemDefinitionIndex).szModel));
+				else
+					return;
+
+				*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
 			}
 
 			break;
 		}
 	}
 
-	*glove->GetItemDefinitionIndex() = EItemDefinitionIndex::glove_sporty;
-	*glove->GetFallbackPaintKit() = 10018;
-	*glove->GetFallbackWear() = 0.0001f;
-
+	*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
+	*glove->GetFallbackPaintKit() = Options::Skins::Gloves::nPaintkit;
+	*glove->GetFallbackWear() = Options::Skins::Gloves::flWear;
+	
 	*glove->GetFallbackSeed() = 0;
 	*glove->GetFallbackStatTrak() = -1;
 	*glove->GetEntityQuality() = 4;
@@ -83,12 +130,12 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 		glovesupdated = false;
 	}
 
-	if (shouldfullupdate)
-	{
+	/*if (shouldfullupdate)
+	/{
 		// FIXMEW: set m_nDeltaTick to ForceFullUpdate
 		Interfaces::Engine()->ClientCmd_Unrestricted("record x;stop", false);
 		shouldfullupdate = false;
-	}
+	}*/
 }
 
 /*void SkinChanger::FireEventClientSide(IGameEvent* event)

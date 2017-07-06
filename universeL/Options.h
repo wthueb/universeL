@@ -3,6 +3,7 @@
 #include "Fonts.h"
 
 #include "SDK\IInputSystem.h"
+#include "PaintKitParser.h"
 
 #include <vector>
 
@@ -74,6 +75,18 @@ namespace Options
 
 		extern float fAllyColor[4];
 		extern float fEnemyColor[4];
+	}
+
+	namespace Skins
+	{
+		namespace Gloves
+		{
+			extern bool bEnabled;
+
+			extern int nItemDefinitionIndex;
+			extern int nPaintkit;
+			extern float flWear;
+		}
 	}
 
 	namespace Misc

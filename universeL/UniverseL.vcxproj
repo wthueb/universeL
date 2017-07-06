@@ -141,6 +141,7 @@
     <ClCompile Include="ImGui\imgui_impl_dx9.cpp" />
     <ClCompile Include="NetvarManager.cpp" />
     <ClCompile Include="Options.cpp" />
+    <ClCompile Include="PaintKitParser.cpp" />
     <ClCompile Include="SDK\characterset.cpp" />
     <ClCompile Include="SDK\CRC.cpp" />
     <ClCompile Include="SDK\SDK.cpp" />
@@ -171,6 +172,7 @@
     <ClInclude Include="ImGui\stb_truetype.h" />
     <ClInclude Include="NetvarManager.h" />
     <ClInclude Include="Options.h" />
+    <ClInclude Include="PaintKitParser.h" />
     <ClInclude Include="SDK\CGlobalVarsBase.h" />
     <ClInclude Include="SDK\CGlowObjectManager.h" />
     <ClInclude Include="SDK\CHandle.h" />
@@ -190,6 +192,7 @@
     <ClInclude Include="SDK\IGameEventManager2.h" />
     <ClInclude Include="SDK\IHandleEntity.h" />
     <ClInclude Include="SDK\IInputSystem.h" />
+    <ClInclude Include="SDK\ILocalize.h" />
     <ClInclude Include="SDK\IMaterial.h" />
     <ClInclude Include="SDK\IPanel.h" />
     <ClInclude Include="SDK\ISurface.h" />

@@ -7,6 +7,8 @@
 
 #include "XorStr.h"
 
+#include "SkinChanger.h"
+
 void DrawInterface()
 {
 	ImGui::Begin(XorStr(Hooks::name), &Options::bMainWindowOpen, ImVec2(300, 350), 1.f);
@@ -38,7 +40,7 @@ void DrawInterface()
 			{
 				*out_text = Options::keys.at(idx).name;
 				return true;
-			}, nullptr, Options::keys.size());
+			}, nullptr, Options::keys.size(), Options::keys.size());
 
 			Options::Aim::nAimkey = Options::keys.at(aimkey_selection).key;
 		}
@@ -52,7 +54,7 @@ void DrawInterface()
 			{
 				*out_text = Options::bones.at(idx).name;
 				return true;
-			}, nullptr, Options::bones.size());
+			}, nullptr, Options::bones.size(), Options::bones.size());
 
 			Options::Aim::nBone = Options::bones.at(bone_selection).bone;
 		}
@@ -103,6 +105,37 @@ void DrawInterface()
 
 		ImGui::ColorEdit3(XorStr("ally color"), Options::ESP::fAllyColor);
 		ImGui::ColorEdit3(XorStr("enemy color"), Options::ESP::fEnemyColor);
+	}
+
+	if (ImGui::CollapsingHeader(XorStr("skin changer")))
+	{
+		ImGui::Checkbox(XorStr("gloves enabled"), &Options::Skins::Gloves::bEnabled);
+
+		{
+			static int gloveselection = 1;
+
+			ImGui::Combo(XorStr("glove"), &gloveselection, [](void* data, int idx, const char** out_text)
+			{
+				*out_text = SkinChanger::glovenames[idx].szName;
+				return true;
+			}, nullptr, SkinChanger::glovenames.size(), SkinChanger::glovenames.size());
+
+			Options::Skins::Gloves::nItemDefinitionIndex = SkinChanger::glovenames.at(gloveselection).iDefinitionIndex;
+		}
+
+		{
+			static int paintkitselection = -1;
+
+			ImGui::Combo(XorStr("glove paint kit"), &paintkitselection, [](void* data, int idx, const char** out_text)
+			{
+				*out_text = gloveskins[idx].name.c_str();
+				return true;
+			}, nullptr, gloveskins.size(), 10);
+
+			Options::Skins::Gloves::nPaintkit = paintkitselection == -1 ? 10018 : gloveskins.at(paintkitselection).id;
+		}
+
+		ImGui::SliderFloat(XorStr("glove float"), &Options::Skins::Gloves::flWear, 0.000001f, .999999f, "%.6f");
 	}
 
 	if (ImGui::CollapsingHeader(XorStr("misc")))

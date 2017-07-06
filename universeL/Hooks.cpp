@@ -1,6 +1,7 @@
 #include "Hooks.h"
 
 #include "Hacks.h"
+#include "PaintKitParser.h"
 #include "Draw.h"
 #include "Interface.h"
 
@@ -84,6 +85,8 @@ namespace Hooks
 		Fonts::Init();
 
 		Options::Init();
+
+		GetPaintKits();
 	}
 
 	void Restore()

@@ -17,6 +17,7 @@
 #include "IEngineVGui.h"
 #include "IGameEventManager2.h"
 #include "IInputSystem.h"
+#include "ILocalize.h"
 #include "IMaterial.h"
 #include "IPanel.h"
 #include "ISurface.h"
@@ -45,6 +46,7 @@ public:
     static IVModelInfo*			  ModelInfo();
     static IEngineTrace*          EngineTrace();
     static ICvar*                 CVar();
+	static ILocalize*             Localize();
 
 private:
     static IVEngineClient*        pEngine;
@@ -61,4 +63,5 @@ private:
 	static IVModelInfo*			  pModelInfo;
     static IEngineTrace*          pEngineTrace;
     static ICvar*                 pCVar;
+	static ILocalize*             pLocalize;
 };
