@@ -22,7 +22,7 @@ void DrawInterface()
 		ImGui::Separator();
 
 		ImGui::InputFloat(XorStr("fov"), &Options::Aim::flFov, 0.f, 0.f, 1);
-		Options::Aim::flFov = min(max(0.f, Options::Aim::flFov), 180.f);
+		std::clamp(Options::Aim::flFov, 0.1f, 180.f);
 
 		ImGui::Checkbox(XorStr("smooth"), &Options::Aim::bSmooth);
 		ImGui::SliderFloat(XorStr("smooth amount"), &Options::Aim::flSmooth, 1.f, 10.f, "%.1f");
@@ -111,7 +111,7 @@ void DrawInterface()
 	{
 		ImGui::Checkbox(XorStr("gloves enabled"), &Options::Skins::Gloves::bEnabled);
 
-		{
+		/*{
 			static int gloveselection = 1;
 
 			ImGui::Combo(XorStr("glove"), &gloveselection, [](void* data, int idx, const char** out_text)
@@ -121,7 +121,7 @@ void DrawInterface()
 			}, nullptr, SkinChanger::glovenames.size(), SkinChanger::glovenames.size());
 
 			Options::Skins::Gloves::nItemDefinitionIndex = SkinChanger::glovenames.at(gloveselection).iDefinitionIndex;
-		}
+		}*/
 
 		{
 			static int paintkitselection = -1;
@@ -135,7 +135,8 @@ void DrawInterface()
 			Options::Skins::Gloves::nPaintkit = paintkitselection == -1 ? 10018 : gloveskins.at(paintkitselection).id;
 		}
 
-		ImGui::SliderFloat(XorStr("glove float"), &Options::Skins::Gloves::flWear, 0.000001f, .999999f, "%.6f");
+		ImGui::InputFloat(XorStr("glove float"), &Options::Skins::Gloves::flWear, 0.f, 0.f, 6);
+		std::clamp(Options::Skins::Gloves::flWear, 0.000001f, 0.999999f);
 	}
 
 	if (ImGui::CollapsingHeader(XorStr("misc")))

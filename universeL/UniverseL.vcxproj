@@ -173,6 +173,7 @@
     <ClInclude Include="NetvarManager.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="PaintKitParser.h" />
+    <ClInclude Include="SDK\CBaseClientState.h" />
     <ClInclude Include="SDK\CGlobalVarsBase.h" />
     <ClInclude Include="SDK\CGlowObjectManager.h" />
     <ClInclude Include="SDK\CHandle.h" />

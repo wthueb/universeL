@@ -2,6 +2,7 @@
 
 #include "Definitions.h"
 
+#include "CBaseClientState.h"
 #include "CGlobalVarsBase.h"
 #include "CGlowObjectManager.h"
 #include "CHandle.h"
@@ -47,6 +48,7 @@ public:
     static IEngineTrace*          EngineTrace();
     static ICvar*                 CVar();
 	static ILocalize*             Localize();
+	static CBaseClientState*      ClientState();
 
 private:
     static IVEngineClient*        pEngine;
@@ -64,4 +66,5 @@ private:
     static IEngineTrace*          pEngineTrace;
     static ICvar*                 pCVar;
 	static ILocalize*             pLocalize;
+	static CBaseClientState*      pClientState;
 };

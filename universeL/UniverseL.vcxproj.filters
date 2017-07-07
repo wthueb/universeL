@@ -268,5 +268,8 @@
     <ClInclude Include="SDK\ILocalize.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\CBaseClientState.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -18,6 +18,7 @@ IVModelInfo*		 Interfaces::pModelInfo = nullptr;
 IEngineTrace*        Interfaces::pEngineTrace = nullptr;
 ICvar*               Interfaces::pCVar = nullptr;
 ILocalize*           Interfaces::pLocalize = nullptr;
+CBaseClientState*    Interfaces::pClientState = nullptr;
 
 CreateInterfaceFn GetFactory(HMODULE hMod)
 {
@@ -178,4 +179,13 @@ ILocalize* Interfaces::Localize()
 		pLocalize = CaptureInterface<ILocalize>(pfnFactory, XorStr("Localize_001"));
 	}
 	return pLocalize;
+}
+
+CBaseClientState* Interfaces::ClientState()
+{
+	if (!pClientState)
+	{
+		pClientState = **reinterpret_cast<CBaseClientState***>((*reinterpret_cast<uintptr_t**>(pEngine))[12] + 0x10);
+	}
+	return pClientState;
 }

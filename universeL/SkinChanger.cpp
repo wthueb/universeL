@@ -113,9 +113,16 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 		}
 	}
 
-	*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
-	*glove->GetFallbackPaintKit() = Options::Skins::Gloves::nPaintkit;
-	*glove->GetFallbackWear() = Options::Skins::Gloves::flWear;
+	if (*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex ||
+		*glove->GetFallbackPaintKit() != Options::Skins::Gloves::nPaintkit ||
+		*glove->GetFallbackWear() != Options::Skins::Gloves::flWear)
+	{
+		*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
+		*glove->GetFallbackPaintKit() = Options::Skins::Gloves::nPaintkit;
+		*glove->GetFallbackWear() = Options::Skins::Gloves::flWear;
+
+		shouldfullupdate = true;
+	}
 	
 	*glove->GetFallbackSeed() = 0;
 	*glove->GetFallbackStatTrak() = -1;
@@ -130,12 +137,11 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 		glovesupdated = false;
 	}
 
-	/*if (shouldfullupdate)
-	/{
-		// FIXMEW: set m_nDeltaTick to ForceFullUpdate
-		Interfaces::Engine()->ClientCmd_Unrestricted("record x;stop", false);
+	if (shouldfullupdate)
+	{
+		Interfaces::ClientState()->ForceFullUpdate();
 		shouldfullupdate = false;
-	}*/
+	}
 }
 
 /*void SkinChanger::FireEventClientSide(IGameEvent* event)
