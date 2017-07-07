@@ -21,6 +21,8 @@ const std::map<size_t, SkinChanger::Item_t> gloveinfo =
 const std::vector<SkinChanger::WeaponName_t> SkinChanger::glovenames =
 {
 	{ 5027, "Bloodhound Gloves" },
+	{ 5028, "T Gloves" },
+	{ 5029, "CT Gloves" },
 	{ 5030, "Sport Gloves" },
 	{ 5031, "Driver Gloves" },
 	{ 5032, "Hand Wraps" },
