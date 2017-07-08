@@ -58,7 +58,7 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	if (!Interfaces::Engine()->IsInGame() || !Options::Skins::Gloves::bEnabled)
 		return;
 
-	static bool glovesupdated = false;
+	static bool glovesadded = false;
 	static bool shouldfullupdate = false;
 
 	auto localplayer = static_cast<C_BasePlayer*>(Interfaces::EntityList()->GetClientEntity(Interfaces::Engine()->GetLocalPlayer()));
@@ -82,7 +82,6 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 		return;
 
 	auto glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
-
 	if (!glove)
 	{
 		for (ClientClass* pClass = Interfaces::Client()->GetAllClasses(); pClass; pClass = pClass->m_pNext)
@@ -96,28 +95,30 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 			pClass->m_pCreateFn(entry, serial);
 			localplayer->GetWearables()[0] = entry | (serial << 16);
 
-			glovesupdated = true;
+			glovesadded = true;
 			shouldfullupdate = true;
 
 			glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
-
-			if (*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex)
-			{	
-				if (gloveinfo.find(Options::Skins::Gloves::nItemDefinitionIndex) != gloveinfo.end())
-					glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex(gloveinfo.at(Options::Skins::Gloves::nItemDefinitionIndex).szModel));
-				else
-					return;
-			}
 
 			break;
 		}
 	}
 
-	if (*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex ||
-		*glove->GetFallbackPaintKit() != Options::Skins::Gloves::nPaintkit ||
+	if (*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex)
+	{
+		if (gloveinfo.find(Options::Skins::Gloves::nItemDefinitionIndex) != gloveinfo.end())
+			glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex(gloveinfo.at(Options::Skins::Gloves::nItemDefinitionIndex).szModel));
+		else
+			return;
+
+		*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
+
+		shouldfullupdate = true;
+	}
+
+	if (*glove->GetFallbackPaintKit() != Options::Skins::Gloves::nPaintkit ||
 		*glove->GetFallbackWear() != Options::Skins::Gloves::flWear)
 	{
-		*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
 		*glove->GetFallbackPaintKit() = Options::Skins::Gloves::nPaintkit;
 		*glove->GetFallbackWear() = Options::Skins::Gloves::flWear;
 
@@ -131,10 +132,10 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	*glove->GetItemIDHigh() = -1; // use fallback values
 	*glove->GetAccountID() = playerinfo.xuidlow;
 
-	if (glovesupdated)
+	if (glovesadded)
 	{
 		glove->GetClientNetworkable()->PreDataUpdate(DATA_UPDATE_CREATED);
-		glovesupdated = false;
+		glovesadded = false;
 	}
 
 	if (shouldfullupdate)
