@@ -172,12 +172,6 @@ public:
 class C_BaseEntity : public IClientEntity
 {
 public:
-
-	IClientNetworkable* GetNetworkable()
-	{
-		return reinterpret_cast<IClientNetworkable*>(reinterpret_cast<uintptr_t>(this) + 0x8);
-	}
-
 	void SetModelIndex(int index)
 	{
 		using oSetModelIndex = void(__thiscall*)(void*, int);

@@ -71,8 +71,8 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 		if (!glove)
 			return;
 
-		glove->GetNetworkable()->SetDestroyedOnRecreateEntities();
-		glove->GetNetworkable()->Release();
+		glove->GetClientNetworkable()->SetDestroyedOnRecreateEntities();
+		glove->GetClientNetworkable()->Release();
 
 		return;
 	}
@@ -107,8 +107,6 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 					glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex(gloveinfo.at(Options::Skins::Gloves::nItemDefinitionIndex).szModel));
 				else
 					return;
-
-				*glove->GetItemDefinitionIndex() = static_cast<EItemDefinitionIndex>(Options::Skins::Gloves::nItemDefinitionIndex);
 			}
 
 			break;
@@ -135,7 +133,7 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 
 	if (glovesupdated)
 	{
-		glove->GetNetworkable()->PreDataUpdate(DATA_UPDATE_CREATED);
+		glove->GetClientNetworkable()->PreDataUpdate(DATA_UPDATE_CREATED);
 		glovesupdated = false;
 	}
 
