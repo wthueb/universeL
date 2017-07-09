@@ -94,7 +94,7 @@ namespace Options
 		{
 			bool bEnabled = false;
 
-			int nItemDefinitionIndex = 5030; // sport gloves
+			int nItemDefinitionIndex = -1;
 			int nPaintkit = -1;
 			float flWear = 0.000001f;
 		}
