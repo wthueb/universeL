@@ -31,6 +31,8 @@ namespace Options
 		Options::ESP::bGlowEnabled = false;
 		Options::ESP::bDrawEnabled = false;
 
+		Options::Skins::Gloves::bEnabled = false;
+
 		Options::Misc::bBhopEnabled = false;
 		Options::Misc::bShowRanks = false;
 		Options::Misc::bAutoAccept = false;
@@ -90,10 +92,10 @@ namespace Options
 	{
 		namespace Gloves
 		{
-			bool bEnabled = true;
+			bool bEnabled = false;
 
 			int nItemDefinitionIndex = 5030; // sport gloves
-			int nPaintkit = 10018; // superconductor
+			int nPaintkit = -1;
 			float flWear = 0.000001f;
 		}
 	}

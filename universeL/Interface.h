@@ -110,10 +110,10 @@ void DrawInterface()
 
 	if (ImGui::CollapsingHeader(XorStr("skin changer")))
 	{
-		//ImGui::Checkbox(XorStr("gloves enabled"), &Options::Skins::Gloves::bEnabled);
+		ImGui::Checkbox(XorStr("gloves enabled"), &Options::Skins::Gloves::bEnabled);
 
 		{
-			static int gloveselection = 1;
+			static int gloveselection = -1;
 
 			ImGui::Combo(XorStr("glove"), &gloveselection, [](void* data, int idx, const char** out_text)
 			{
@@ -121,7 +121,7 @@ void DrawInterface()
 				return true;
 			}, nullptr, SkinChanger::glovenames.size(), SkinChanger::glovenames.size());
 
-			Options::Skins::Gloves::nItemDefinitionIndex = SkinChanger::glovenames.at(gloveselection).iDefinitionIndex;
+			Options::Skins::Gloves::nItemDefinitionIndex = gloveselection == -1 ? -1 : SkinChanger::glovenames.at(gloveselection).iDefinitionIndex;
 		}
 
 		{
@@ -133,7 +133,7 @@ void DrawInterface()
 				return true;
 			}, nullptr, gloveskins.size(), 10);
 
-			Options::Skins::Gloves::nPaintkit = paintkitselection == -1 ? 10018 : gloveskins.at(paintkitselection).id;
+			Options::Skins::Gloves::nPaintkit = paintkitselection == -1 ? -1 : gloveskins.at(paintkitselection).id;
 		}
 
 		ImGui::InputFloat(XorStr("glove float"), &Options::Skins::Gloves::flWear, 0.f, 0.f, 6);
