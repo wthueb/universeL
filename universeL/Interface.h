@@ -11,7 +11,8 @@
 
 void DrawInterface()
 {
-	ImGui::Begin(XorStr(Hooks::name), &Options::bMainWindowOpen, ImVec2(300, 350), 1.f);
+	ImGui::Begin(XorStr(Hooks::name), &Options::bMainWindowOpen, ImGuiWindowFlags_NoResize |
+		ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
 
 	if (ImGui::CollapsingHeader(XorStr("aim")))
 	{

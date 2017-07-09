@@ -65,9 +65,10 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	if (!localplayer)
 		return;
 
+	auto glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntityFromHandle(localplayer->GetWearables()[0]));
+
 	if (!localplayer->IsAlive())
 	{
-		auto glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
 		if (!glove)
 			return;
 
@@ -81,15 +82,14 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	if (!Interfaces::Engine()->GetPlayerInfo(Interfaces::Engine()->GetLocalPlayer(), &playerinfo))
 		return;
 
-	auto glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
-	if (!glove)
+	if (!glove) // no gloves...create them
 	{
 		for (ClientClass* pClass = Interfaces::Client()->GetAllClasses(); pClass; pClass = pClass->m_pNext)
 		{
 			if (pClass->m_ClassID != EClassIds::CEconWearable)
 				continue;
 
-			int entry = (Interfaces::EntityList()->GetHighestEntityIndex() + 1);
+			int entry = Interfaces::EntityList()->GetHighestEntityIndex() + 1;
 			int serial = RandomInt(0x0, 0xFFF);
 
 			pClass->m_pCreateFn(entry, serial);
@@ -98,11 +98,13 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 			glovesadded = true;
 			shouldfullupdate = true;
 
-			glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntity(localplayer->GetWearables()[0] & 0xFFF));
+			glove = static_cast<C_BaseAttributableItem*>(Interfaces::EntityList()->GetClientEntityFromHandle(localplayer->GetWearables()[0]));
 
 			break;
 		}
 	}
+
+	*reinterpret_cast<int*>(uintptr_t(glove) + 0x64) = -1;
 
 	if (*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex)
 	{
