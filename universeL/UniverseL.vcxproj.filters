@@ -86,6 +86,9 @@
     <ClCompile Include="PaintKitParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ClantagChanger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Hooks.h">
@@ -270,6 +273,9 @@
     </ClInclude>
     <ClInclude Include="SDK\CBaseClientState.h">
       <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="ClantagChanger.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

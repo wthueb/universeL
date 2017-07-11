@@ -116,6 +116,7 @@ void ESP::ShowRanks(CUserCmd* pCmd)
 	static int nArray[3] = { 0, 0, 0 };
 
 	using MsgFunc_ServerRankRevealAllFn = bool(__cdecl*)(int*);
+
 	static MsgFunc_ServerRankRevealAllFn MsgFunc_ServerRankRevealAll =
 		reinterpret_cast<MsgFunc_ServerRankRevealAllFn>(Utils::FindSignature(XorStr("client.dll"), XorStr("55 8B EC 8B 0D ? ? ? ? 68")));
 

@@ -11,8 +11,8 @@
 
 void DrawInterface()
 {
-	ImGui::Begin(XorStr(Hooks::name), &Options::bMainWindowOpen, ImGuiWindowFlags_NoResize |
-		ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_AlwaysAutoResize);
+	ImGui::Begin(XorStr(Hooks::name), &Options::bMainWindowOpen, ImGuiWindowFlags_NoCollapse |
+		ImGuiWindowFlags_NoScrollbar);
 
 	if (ImGui::CollapsingHeader(XorStr("aim")))
 	{
@@ -142,6 +142,18 @@ void DrawInterface()
 
 	if (ImGui::CollapsingHeader(XorStr("misc")))
 	{
+		{
+			static char buf[64];
+
+			ImGui::InputText(XorStr("clantag"), buf, sizeof(buf));
+
+			Options::Misc::strClantag = buf;
+		}
+		
+		ImGui::Checkbox(XorStr("scrolling clantag"), &Options::Misc::bClantagScroll);
+
+		ImGui::Separator();
+
 		ImGui::Checkbox(XorStr("bhop enabled"), &Options::Misc::bBhopEnabled);
 
 		ImGui::Separator();

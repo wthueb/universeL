@@ -131,6 +131,7 @@
     <ClCompile Include="Aimbot.cpp" />
     <ClCompile Include="AutoAccept.cpp" />
     <ClCompile Include="Bhop.cpp" />
+    <ClCompile Include="ClantagChanger.cpp" />
     <ClCompile Include="Draw.cpp" />
     <ClCompile Include="DrawManager.cpp" />
     <ClCompile Include="ESP.cpp" />
@@ -156,6 +157,7 @@
     <ClInclude Include="Aimbot.h" />
     <ClInclude Include="AutoAccept.h" />
     <ClInclude Include="Bhop.h" />
+    <ClInclude Include="ClantagChanger.h" />
     <ClInclude Include="Draw.h" />
     <ClInclude Include="DrawManager.h" />
     <ClInclude Include="ESP.h" />

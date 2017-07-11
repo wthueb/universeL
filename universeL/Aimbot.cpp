@@ -24,7 +24,6 @@ void AngleVectors(const QAngle& angles, Vector* forward);
 C_BasePlayer* localplayer = nullptr;
 C_BaseCombatWeapon* activeweapon = nullptr;
 CUserCmd* cmd = nullptr;
-QAngle oldangle;
 int besttarget = -1;
 
 void Aimbot::CreateMove(CUserCmd* pCmd)
@@ -82,6 +81,8 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 
 void RCS()
 {
+	static QAngle oldangle;
+
 	if (cmd->buttons & IN_ATTACK)
 	{
 		QAngle aimpunch = *localplayer->GetAimPunch() * 2.f;

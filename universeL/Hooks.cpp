@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 13
-#define VERSION_PATCH 7
+#define VERSION_PATCH 8
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -192,6 +192,9 @@ namespace Hooks
 	void __stdcall hkFrameStageNotify(ClientFrameStage_t stage)
 	{
 		SkinChanger::FrameStageNotify(stage);
+
+		if (stage == FRAME_RENDER_START)
+			ClantagChanger::SetClanTag();
 
 		oFrameStageNotify(Interfaces::Client(), stage);
 	}

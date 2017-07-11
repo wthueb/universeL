@@ -107,7 +107,8 @@ void SkinChanger::FrameStageNotify(ClientFrameStage_t stage)
 	// fix invalid material error in console causing lag
 	*reinterpret_cast<int*>(uintptr_t(glove) + 0x64) = -1;
 
-	if (Options::Skins::Gloves::nItemDefinitionIndex != -1 && *glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex)
+	if (Options::Skins::Gloves::nItemDefinitionIndex != -1 &&
+		*glove->GetItemDefinitionIndex() != Options::Skins::Gloves::nItemDefinitionIndex)
 	{
 		if (gloveinfo.find(Options::Skins::Gloves::nItemDefinitionIndex) != gloveinfo.end())
 			glove->SetModelIndex(Interfaces::ModelInfo()->GetModelIndex(gloveinfo.at(Options::Skins::Gloves::nItemDefinitionIndex).szModel));

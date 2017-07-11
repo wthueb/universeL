@@ -102,6 +102,9 @@ namespace Options
 	
 	namespace Misc
 	{
+		std::string strClantag = "";
+		bool bClantagScroll = false;
+
 		bool bBhopEnabled = false;
 		bool bShowRanks = true;
 		bool bAutoAccept = false;

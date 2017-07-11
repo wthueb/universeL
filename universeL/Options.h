@@ -5,6 +5,7 @@
 #include "SDK\IInputSystem.h"
 #include "PaintKitParser.h"
 
+#include <string>
 #include <vector>
 
 namespace Options
@@ -91,6 +92,9 @@ namespace Options
 
 	namespace Misc
 	{
+		extern std::string strClantag;
+		extern bool bClantagScroll;
+
 		extern bool bBhopEnabled;
 		extern bool bShowRanks;
 		extern bool bAutoAccept;
