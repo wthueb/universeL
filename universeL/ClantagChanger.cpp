@@ -47,16 +47,16 @@ void ClantagChanger::SetClanTag()
 
 		static std::string oldstring = Options::Misc::strClantag;
 
-		if (Options::Misc::strClantag.compare(oldstring)) // if they are different
-		{
-			bannertag = StringBanner(Options::Misc::strClantag);
-			oldstring = Options::Misc::strClantag;
-		}
-
 		static int counter = 0;
 
 		if (counter % 100 == 0)
 		{
+			if (Options::Misc::strClantag.compare(oldstring)) // if they are different
+			{
+				bannertag = StringBanner(Options::Misc::strClantag);
+				oldstring = Options::Misc::strClantag;
+			}
+
 			SetClanTag(bannertag.next().c_str(), "");
 			counter = 0;
 		}
