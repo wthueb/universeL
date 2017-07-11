@@ -4,10 +4,10 @@
 
 struct Color
 {
-	int r;
-	int g;
-	int b;
-	int a;
+	unsigned char r;
+	unsigned char g;
+	unsigned char b;
+	unsigned char a;
 
 	Color()
 	{
@@ -25,7 +25,7 @@ struct Color
 		this->a = static_cast<int>(arr[3] * 255);
 	}
 
-	Color(int r, int g, int b)
+	Color(unsigned char r, unsigned char g, unsigned char b)
 	{
 		this->r = r;
 		this->g = g;
@@ -33,7 +33,7 @@ struct Color
 		this->a = 255;
 	}
 
-	Color(int r, int g, int b, int a)
+	Color(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
 	{
 		this->r = r;
 		this->g = g;
@@ -41,40 +41,37 @@ struct Color
 		this->a = a;
 	}
 
-	DWORD GetARGB() const
-	{
-		int a0 = a >> 24;
-		int r0 = r >> 16;
-		int g0 = g >> 8;
-		int b0 = b;
-
-		return a0 | r0 | g0 | b0;
-	}
-
 	Color operator / (float div)
 	{
 		Color color = *this;
-		color.r = static_cast<int>(color.r / div);
-		color.g = static_cast<int>(color.g / div);
-		color.b = static_cast<int>(color.b / div);
+
+		color.r = static_cast<unsigned char>(color.r / div);
+		color.g = static_cast<unsigned char>(color.g / div);
+		color.b = static_cast<unsigned char>(color.b / div);
+
 		return color;
 	}
 
 	Color& operator /= (float div)
 	{
 		Color& color = *this;
-		color.r = static_cast<int>(color.r / div);
-		color.g = static_cast<int>(color.g / div);
-		color.b = static_cast<int>(color.b / div);
+
+		color.r = static_cast<unsigned char>(color.r / div);
+		color.g = static_cast<unsigned char>(color.g / div);
+		color.b = static_cast<unsigned char>(color.b / div);
+
 		return color;
+
 	}
 
 	Color& operator *= (float coeff)
 	{
 		Color& color = *this;
-		color.r = static_cast<int>(color.r * coeff);
-		color.g = static_cast<int>(color.g * coeff);
-		color.b = static_cast<int>(color.b * coeff);
+
+		color.r = static_cast<unsigned char>(color.r * coeff);
+		color.g = static_cast<unsigned char>(color.g * coeff);
+		color.b = static_cast<unsigned char>(color.b * coeff);
+
 		return color;
 	}
 
@@ -139,10 +136,10 @@ struct Color
 	static Color FromImColor(ImColor color)
 	{
 		return Color(
-			static_cast<int>(color.Value.x * 255),
-			static_cast<int>(color.Value.y * 255),
-			static_cast<int>(color.Value.z * 255),
-			static_cast<int>(color.Value.w * 255)
+			static_cast<unsigned char>(color.Value.x * 255),
+			static_cast<unsigned char>(color.Value.y * 255),
+			static_cast<unsigned char>(color.Value.z * 255),
+			static_cast<unsigned char>(color.Value.w * 255)
 		);
 	}
 

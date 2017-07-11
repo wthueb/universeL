@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 13
-#define VERSION_PATCH 9
+#define VERSION_PATCH 10
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -87,12 +87,16 @@ namespace Hooks
 		Options::Init();
 
 		GetPaintKits();
+
+		Interfaces::CVar()->ConsoleColorPrintf(Color(255, 255, 255, 255), "\n\n=======================================================================\n");
+
+		Interfaces::CVar()->ConsoleColorPrintf(Color(160, 255, 255, 255), "\n\n                     universeL loaded successfully\n");
+
+		Interfaces::CVar()->ConsoleColorPrintf(Color(255, 255, 255, 255), "\n\n=======================================================================\n\n\n");
 	}
 
 	void Restore()
 	{
-		SetWindowLongPtr(hWindow, GWLP_WNDPROC, reinterpret_cast<LONG_PTR>(oWndProc));
-
 		pRenderer->InvalidateObjects();
 
 		pD3DDevice9Hook->RestoreTable();
