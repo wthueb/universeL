@@ -35,29 +35,29 @@ void DrawInterface()
 		ImGui::Checkbox(XorStr("on shoot"), &Options::Aim::bOnShoot);
 		
 		{
-			static int aimkey_selection = 0;
+			static int aimkeyselection = 0;
 
-			ImGui::Combo(XorStr("aimkey"), &aimkey_selection, [](void* data, int idx, const char** out_text)
+			ImGui::Combo(XorStr("aimkey"), &aimkeyselection, [](void* data, int idx, const char** out_text)
 			{
 				*out_text = Options::keys.at(idx).name;
 				return true;
 			}, nullptr, Options::keys.size(), Options::keys.size());
 
-			Options::Aim::nAimkey = Options::keys.at(aimkey_selection).key;
+			Options::Aim::nAimkey = Options::keys.at(aimkeyselection).key;
 		}
 
 		ImGui::Separator();
 
 		{
-			static int bone_selection = 1;
+			static int boneselection = 1;
 
-			ImGui::Combo(XorStr("bone"), &bone_selection, [](void* data, int idx, const char** out_text)
+			ImGui::Combo(XorStr("bone"), &boneselection, [](void* data, int idx, const char** out_text)
 			{
 				*out_text = Options::bones.at(idx).name;
 				return true;
 			}, nullptr, Options::bones.size(), Options::bones.size());
 
-			Options::Aim::nBone = Options::bones.at(bone_selection).bone;
+			Options::Aim::nBone = Options::bones.at(boneselection).bone;
 		}
 
 		ImGui::Separator();

@@ -54,8 +54,7 @@ namespace Options
 		bool bSilent = false;
 
 		bool bOnShoot = true;
-		bool bOnAimkey = false;
-		int nAimkey = ButtonCode_t::MOUSE_4;
+		int nAimkey = ButtonCode_t::KEY_XBUTTON_RTRIGGER;
 
 		int nBone = Bone::BONE_NECK;
 

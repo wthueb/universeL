@@ -44,7 +44,6 @@ namespace Options
 		extern bool bSilent;
 
 		extern bool bOnShoot;
-		extern bool bOnAimkey;
 		extern int nAimkey;
 
 		extern int nBone;

@@ -53,7 +53,7 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 		static bool found = false;
 
 		if ((Options::Aim::bOnShoot && cmd->buttons & IN_ATTACK) ||
-			(Options::Aim::bOnAimkey && Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey))))
+			Interfaces::InputSystem()->IsButtonDown(static_cast<ButtonCode_t>(Options::Aim::nAimkey)))
 		{
 			if (!found || Options::Aim::bReAim)
 			{

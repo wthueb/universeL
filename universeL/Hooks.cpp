@@ -224,7 +224,7 @@ namespace Hooks
 			return;
 
 		ESP::Draw();
-		ESP::Glow(); // FIXMEW: move to [somewhere] to avoid flashing
+		ESP::Glow();
 	}
 
 	void __stdcall hkPlaySound(const char* szFileName)
