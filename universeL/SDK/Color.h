@@ -4,10 +4,10 @@
 
 struct Color
 {
-	unsigned char r;
-	unsigned char g;
-	unsigned char b;
-	unsigned char a;
+	int r;
+	int g;
+	int b;
+	int a;
 
 	Color()
 	{
@@ -25,7 +25,7 @@ struct Color
 		this->a = static_cast<int>(arr[3] * 255);
 	}
 
-	Color(unsigned char r, unsigned char g, unsigned char b)
+	Color(int r, int g, int b)
 	{
 		this->r = r;
 		this->g = g;
@@ -33,7 +33,7 @@ struct Color
 		this->a = 255;
 	}
 
-	Color(unsigned char r, unsigned char g, unsigned char b, unsigned char a)
+	Color(int r, int g, int b, int a)
 	{
 		this->r = r;
 		this->g = g;
@@ -45,9 +45,9 @@ struct Color
 	{
 		Color color = *this;
 
-		color.r = static_cast<unsigned char>(color.r / div);
-		color.g = static_cast<unsigned char>(color.g / div);
-		color.b = static_cast<unsigned char>(color.b / div);
+		color.r = static_cast<int>(color.r / div);
+		color.g = static_cast<int>(color.g / div);
+		color.b = static_cast<int>(color.b / div);
 
 		return color;
 	}
@@ -56,9 +56,9 @@ struct Color
 	{
 		Color& color = *this;
 
-		color.r = static_cast<unsigned char>(color.r / div);
-		color.g = static_cast<unsigned char>(color.g / div);
-		color.b = static_cast<unsigned char>(color.b / div);
+		color.r = static_cast<int>(color.r / div);
+		color.g = static_cast<int>(color.g / div);
+		color.b = static_cast<int>(color.b / div);
 
 		return color;
 
@@ -68,9 +68,9 @@ struct Color
 	{
 		Color& color = *this;
 
-		color.r = static_cast<unsigned char>(color.r * coeff);
-		color.g = static_cast<unsigned char>(color.g * coeff);
-		color.b = static_cast<unsigned char>(color.b * coeff);
+		color.r = static_cast<int>(color.r * coeff);
+		color.g = static_cast<int>(color.g * coeff);
+		color.b = static_cast<int>(color.b * coeff);
 
 		return color;
 	}
@@ -86,49 +86,49 @@ struct Color
 		if (h < 1)
 		{
 			return Color(
-				static_cast<unsigned char>(brightness * 255),
-				static_cast<unsigned char>(t * 255),
-				static_cast<unsigned char>(p * 255)
+				static_cast<int>(brightness * 255),
+				static_cast<int>(t * 255),
+				static_cast<int>(p * 255)
 			);
 		}
 		else if (h < 2)
 		{
 			return Color(
-				static_cast<unsigned char>(q * 255),
-				static_cast<unsigned char>(brightness * 255),
-				static_cast<unsigned char>(p * 255)
+				static_cast<int>(q * 255),
+				static_cast<int>(brightness * 255),
+				static_cast<int>(p * 255)
 			);
 		}
 		else if (h < 3)
 		{
 			return Color(
-				static_cast<unsigned char>(p * 255),
-				static_cast<unsigned char>(brightness * 255),
-				static_cast<unsigned char>(t * 255)
+				static_cast<int>(p * 255),
+				static_cast<int>(brightness * 255),
+				static_cast<int>(t * 255)
 			);
 		}
 		else if (h < 4)
 		{
 			return Color(
-				static_cast<unsigned char>(p * 255),
-				static_cast<unsigned char>(q * 255),
-				static_cast<unsigned char>(brightness * 255)
+				static_cast<int>(p * 255),
+				static_cast<int>(q * 255),
+				static_cast<int>(brightness * 255)
 			);
 		}
 		else if (h < 5)
 		{
 			return Color(
-				static_cast<unsigned char>(t * 255),
-				static_cast<unsigned char>(p * 255),
-				static_cast<unsigned char>(brightness * 255)
+				static_cast<int>(t * 255),
+				static_cast<int>(p * 255),
+				static_cast<int>(brightness * 255)
 			);
 		}
 		else
 		{
 			return Color(
-				static_cast<unsigned char>(brightness * 255),
-				static_cast<unsigned char>(p * 255),
-				static_cast<unsigned char>(q * 255)
+				static_cast<int>(brightness * 255),
+				static_cast<int>(p * 255),
+				static_cast<int>(q * 255)
 			);
 		}
 	}
@@ -136,10 +136,10 @@ struct Color
 	static Color FromImColor(ImColor color)
 	{
 		return Color(
-			static_cast<unsigned char>(color.Value.x * 255),
-			static_cast<unsigned char>(color.Value.y * 255),
-			static_cast<unsigned char>(color.Value.z * 255),
-			static_cast<unsigned char>(color.Value.w * 255)
+			static_cast<int>(color.Value.x * 255),
+			static_cast<int>(color.Value.y * 255),
+			static_cast<int>(color.Value.z * 255),
+			static_cast<int>(color.Value.w * 255)
 		);
 	}
 

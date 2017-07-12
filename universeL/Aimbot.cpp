@@ -217,7 +217,7 @@ bool IsVisible(C_BasePlayer* player)
 	trace_t tr;
 	Interfaces::EngineTrace()->TraceRay(ray, MASK_SHOT_HULL | CONTENTS_HITBOX, &filter, &tr);
 
-	return tr.m_pEnt == player || tr.fraction > .99f;
+	return tr.m_pEnt == player || tr.fraction == 1.f;
 }
 
 bool IsValidPlayer(C_BasePlayer* player)

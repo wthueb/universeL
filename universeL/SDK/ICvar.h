@@ -501,7 +501,7 @@ public:
 	virtual void                       CallGlobalChangeCallbacks(ConVar *var, const char* pOldString, float flOldValue) = 0; // 22
 	virtual void                       InstallConsoleDisplayFunc(IConsoleDisplayFunc* pDisplayFunc) = 0; // 23
 	virtual void                       RemoveConsoleDisplayFunc(IConsoleDisplayFunc* pDisplayFunc) = 0; // 24
-	virtual void                       ConsoleColorPrintf(const Color &clr, const char* pFormat, ...) const = 0; // 25
+	virtual void                       ConsoleColorPrintf(const uint8_t* clr, const char* pFormat, ...) const = 0; // 25
 	virtual void                       ConsolePrintf(const char* pFormat, ...) const = 0; // 26
 	virtual void                       ConsoleDPrintf(const char* pFormat, ...) const = 0; // 27
 	virtual void                       RevertFlaggedConVars(int nFlag) = 0; // 28

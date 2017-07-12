@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 13
-#define VERSION_PATCH 10
+#define VERSION_PATCH 11
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -88,11 +88,14 @@ namespace Hooks
 
 		GetPaintKits();
 
-		Interfaces::CVar()->ConsoleColorPrintf(Color(255, 255, 255, 255), "\n\n=======================================================================\n");
+		uint8_t white[4] = { 255, 255, 255, 255 };
+		uint8_t lightblue[4] = { 160, 255, 255, 255 };
 
-		Interfaces::CVar()->ConsoleColorPrintf(Color(160, 255, 255, 255), "\n\n                     universeL loaded successfully\n");
+		Interfaces::CVar()->ConsoleColorPrintf(white, "\n\n=======================================================================\n");
 
-		Interfaces::CVar()->ConsoleColorPrintf(Color(255, 255, 255, 255), "\n\n=======================================================================\n\n\n");
+		Interfaces::CVar()->ConsoleColorPrintf(lightblue, "\n\n                     universeL loaded successfully\n");
+
+		Interfaces::CVar()->ConsoleColorPrintf(white, "\n\n=======================================================================\n\n\n");
 	}
 
 	void Restore()
