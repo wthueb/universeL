@@ -1,27 +1,38 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="SDK">
-      <UniqueIdentifier>{91287241-1988-46ed-9007-2dfe1e507189}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="ImGui">
-      <UniqueIdentifier>{48da3715-4605-4711-8cbf-a83ecd98f708}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="SDK\SDK.cpp">
-      <Filter>SDK</Filter>
+    <ClCompile Include="Aimbot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AutoAccept.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Bhop.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ClantagChanger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DrawManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ESP.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Fonts.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Hooks.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\characterset.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
+    <ClCompile Include="SDK\CRC.cpp">
+      <Filter>SDK</Filter>
     </ClCompile>
     <ClCompile Include="ImGui\imgui.cpp">
       <Filter>ImGui</Filter>
@@ -32,78 +43,90 @@
     <ClCompile Include="ImGui\imgui_impl_dx9.cpp">
       <Filter>ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="NetvarManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Options.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="DrawManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\characterset.cpp">
-      <Filter>SDK</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\Vector4D.cpp">
-      <Filter>SDK</Filter>
-    </ClCompile>
-    <ClCompile Include="Draw.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="ESP.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Bhop.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Fonts.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AutoAccept.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Aimbot.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="SDK\Vector.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
     <ClCompile Include="SDK\Vector2D.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
+    <ClCompile Include="SDK\Vector4D.cpp">
+      <Filter>SDK</Filter>
+    </ClCompile>
     <ClCompile Include="SDK\VMatrix.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
-    <ClCompile Include="universeL.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SDK\CRC.cpp">
+    <ClCompile Include="SDK\SDK.cpp">
       <Filter>SDK</Filter>
     </ClCompile>
-    <ClCompile Include="SkinChanger.cpp">
+    <ClCompile Include="NetvarManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Options.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="PaintKitParser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ClantagChanger.cpp">
+    <ClCompile Include="SkinChanger.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="universeL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Aimbot.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AutoAccept.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bhop.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ClantagChanger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Draw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DrawManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ESP.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fonts.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Hacks.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="Hooks.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\CBaseClientState.h">
+      <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\CGlobalVarsBase.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\CGlowObjectManager.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
     <ClInclude Include="SDK\CHandle.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\characterset.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\CInput.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Color.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\CRC.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\Definitions.h">
@@ -124,25 +147,46 @@
     <ClInclude Include="SDK\IClientMode.h">
       <Filter>SDK</Filter>
     </ClInclude>
+    <ClInclude Include="SDK\ICvar.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
     <ClInclude Include="SDK\IEngineTrace.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IEngineVGui.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IGameEventManager2.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\IHandleEntity.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\ISurface.h">
+    <ClInclude Include="SDK\IInputSystem.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\IVEngineClient.h">
+    <ClInclude Include="SDK\ILocalize.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\PlayerInfo.h">
+    <ClInclude Include="SDK\IMaterial.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\Recv.h">
-      <Filter>SDK</Filter>
+    <ClInclude Include="ImGui\imgui_internal.h">
+      <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="SDK\SDK.h">
+    <ClInclude Include="ImGui\imconfig.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="ImGui\imgui_impl_dx9.h">
+      <Filter>ImGui</Filter>
+    </ClInclude>
+    <ClInclude Include="XorStr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\VMatrix.h">
       <Filter>SDK</Filter>
     </ClInclude>
     <ClInclude Include="SDK\UtlMemory.h">
@@ -154,29 +198,59 @@
     <ClInclude Include="SDK\Vector.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="XorStr.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="VFTableHook.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IEngineVGui.h">
+    <ClInclude Include="SDK\Vector2D.h">
       <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imconfig.h">
-      <Filter>ImGui</Filter>
+    <ClInclude Include="SDK\Vector4D.h">
+      <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui.h">
-      <Filter>ImGui</Filter>
+    <ClInclude Include="VFTableHook.h">
+      <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_impl_dx9.h">
-      <Filter>ImGui</Filter>
+    <ClInclude Include="SDK\IPanel.h">
+      <Filter>SDK</Filter>
     </ClInclude>
-    <ClInclude Include="ImGui\imgui_internal.h">
-      <Filter>ImGui</Filter>
+    <ClInclude Include="SDK\ISurface.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IVDebugOverlay.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IVEngineClient.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IVModelInfo.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\IVModelRender.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\Recv.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\PlayerInfo.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="SDK\SDK.h">
+      <Filter>SDK</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="NetvarManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Options.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PaintKitParser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SkinChanger.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="ImGui\stb_rect_pack.h">
       <Filter>ImGui</Filter>
@@ -187,95 +261,19 @@
     <ClInclude Include="ImGui\stb_truetype.h">
       <Filter>ImGui</Filter>
     </ClInclude>
-    <ClInclude Include="NetvarManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Options.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DrawManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\characterset.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IVModelInfo.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IVModelRender.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IMaterial.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Vector4D.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IVDebugOverlay.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IPanel.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="Draw.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ESP.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Bhop.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Hacks.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Fonts.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\CGlowObjectManager.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="AutoAccept.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Aimbot.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IInputSystem.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ICvar.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\Vector2D.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\VMatrix.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\CRC.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SkinChanger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\IGameEventManager2.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="PaintKitParser.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\ILocalize.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="SDK\CBaseClientState.h">
-      <Filter>SDK</Filter>
-    </ClInclude>
-    <ClInclude Include="ClantagChanger.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{4473d731-9f19-4c4b-9ca3-d412c9baaf78}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{93df2b72-a3d0-4b04-8db0-67449f9689a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SDK">
+      <UniqueIdentifier>{57bbc4ac-b67a-43df-b24b-9024a1af5583}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ImGui">
+      <UniqueIdentifier>{b9777443-9db1-4ec9-966b-1d8a5f9a6f9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

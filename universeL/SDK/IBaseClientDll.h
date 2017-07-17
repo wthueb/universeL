@@ -9,6 +9,7 @@ using CreateClientClassFn = IClientNetworkable*(*)(int entnum, int serialnum);
 using CreateEventFn = IClientNetworkable*(*)();
 
 class RecvTable;
+enum EClassIds;
 
 class ClientClass
 {
@@ -24,7 +25,6 @@ public:
 class IBaseClientDLL
 {
 public:
-    // Connect appsystem components, get global interfaces, don't run any other init code
     virtual int              Connect(CreateInterfaceFn appSystemFactory, CGlobalVarsBase *pGlobals) = 0;
     virtual int              Disconnect(void) = 0;
     virtual int              Init(CreateInterfaceFn appSystemFactory, CGlobalVarsBase *pGlobals) = 0;

@@ -4,5 +4,5 @@
 
 namespace Aimbot
 {
-	void CreateMove(CUserCmd* pCmd);
+	void CreateMove(CUserCmd* pCmd, bool* bSendPacket);
 }

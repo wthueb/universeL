@@ -13,7 +13,7 @@
 
 #define VERSION_MAJOR 0
 #define VERSION_MINOR 13
-#define VERSION_PATCH 11
+#define VERSION_PATCH 12
 
 extern LRESULT ImGui_ImplDX9_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 
@@ -183,9 +183,14 @@ namespace Hooks
 	{
 		bool ret = oCreateMove(Interfaces::ClientMode(), sample_input_frametime, pCmd);
 
+		DWORD* frame_ptr;
+		__asm mov frame_ptr, ebp
+
+		bool* bSendPacket = reinterpret_cast<bool*>(*frame_ptr - 0x1C);
+		
 		if (pCmd && pCmd->command_number)
 		{
-			Aimbot::CreateMove(pCmd);
+			Aimbot::CreateMove(pCmd, bSendPacket);
 			Bhop::CreateMove(pCmd);
 			ESP::ShowRanks(pCmd);
 		}

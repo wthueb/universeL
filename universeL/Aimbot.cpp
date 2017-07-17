@@ -26,7 +26,7 @@ C_BaseCombatWeapon* activeweapon = nullptr;
 CUserCmd* cmd = nullptr;
 int besttarget = -1;
 
-void Aimbot::CreateMove(CUserCmd* pCmd)
+void Aimbot::CreateMove(CUserCmd* pCmd, bool* bSendPacket)
 {
 	if (!Interfaces::Engine()->IsInGame() || !Options::Aim::bAimbotEnabled && !Options::Aim::bRCSEnabled)
 		return;
@@ -77,6 +77,8 @@ void Aimbot::CreateMove(CUserCmd* pCmd)
 
 	if (!Options::Aim::bSilent)
 		Interfaces::Engine()->SetViewAngles(cmd->viewangles);
+	else
+		*bSendPacket = false;
 }
 
 void RCS()
@@ -240,7 +242,7 @@ bool IsValidPlayer(C_BasePlayer* player)
 	return true;
 }
 
-void ClampAngle(QAngle& angle)
+void ClampAngle(QAngle &angle)
 {
 	for (auto i = 0; i < 3; ++i)
 		if (!std::isfinite(angle[i])) // if it is infinite or NaN
@@ -255,7 +257,7 @@ void ClampAngle(QAngle& angle)
 	angle.z = 0;
 }
 
-float GetFov(const QAngle& viewAngle, const QAngle& aimAngle)
+float GetFov(const QAngle &viewAngle, const QAngle &aimAngle)
 {
 	Vector ang, aim;
 
@@ -265,7 +267,7 @@ float GetFov(const QAngle& viewAngle, const QAngle& aimAngle)
 	return RAD2DEG(acos(aim.Dot(ang) / aim.LengthSqr()));
 }
 
-void VectorAngles(const Vector& forward, QAngle &angles)
+void VectorAngles(const Vector &forward, QAngle &angles)
 {
 	if (forward[1] == 0.0f && forward[0] == 0.0f)
 	{
@@ -296,7 +298,7 @@ void inline SinCos(float radians, float* sine, float* cosine)
 	*cosine = cos(radians);
 }
 
-void AngleVectors(const QAngle& angles, Vector* forward)
+void AngleVectors(const QAngle &angles, Vector* forward)
 {
 	float sp, sy, cp, cy;
 

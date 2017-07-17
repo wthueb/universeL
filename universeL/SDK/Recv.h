@@ -14,7 +14,6 @@ enum SendPropType
 };
 
 class RecvTable;
-class RecvProp;
 
 class RecvProp
 {
