@@ -100,7 +100,9 @@ int main()
 	white;
 	cout << "=====================================================================\n\n";
 
+#ifndef _DEBUG
 	if (!Update())
+#endif
 	{
 		red;
 		cout << "unable to update. assuming current version works\n\n";

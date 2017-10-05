@@ -154,6 +154,17 @@ void DrawInterface()
 
 		ImGui::Separator();
 
+		ImGui::Checkbox(XorStr("name changer"), &Options::Misc::bNameChanger);
+
+		{
+			static char buf[64];
+
+			if (ImGui::InputText(XorStr("name"), buf, sizeof(buf), ImGuiInputTextFlags_EnterReturnsTrue))
+				Options::Misc::strName = buf;
+		}
+
+		ImGui::Separator();
+
 		ImGui::Checkbox(XorStr("bhop enabled"), &Options::Misc::bBhopEnabled);
 
 		ImGui::Separator();

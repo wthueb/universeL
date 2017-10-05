@@ -94,6 +94,9 @@ namespace Options
 		extern std::string strClantag;
 		extern bool bClantagScroll;
 
+		extern bool bNameChanger;
+		extern std::string strName;
+
 		extern bool bBhopEnabled;
 		extern bool bShowRanks;
 		extern bool bAutoAccept;

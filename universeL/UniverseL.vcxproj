@@ -140,6 +140,7 @@
     <ClCompile Include="ImGui\imgui.cpp" />
     <ClCompile Include="ImGui\imgui_draw.cpp" />
     <ClCompile Include="ImGui\imgui_impl_dx9.cpp" />
+    <ClCompile Include="NameChanger.cpp" />
     <ClCompile Include="NetvarManager.cpp" />
     <ClCompile Include="Options.cpp" />
     <ClCompile Include="PaintKitParser.cpp" />
@@ -172,6 +173,7 @@
     <ClInclude Include="ImGui\stb_rect_pack.h" />
     <ClInclude Include="ImGui\stb_textedit.h" />
     <ClInclude Include="ImGui\stb_truetype.h" />
+    <ClInclude Include="NameChanger.h" />
     <ClInclude Include="NetvarManager.h" />
     <ClInclude Include="Options.h" />
     <ClInclude Include="PaintKitParser.h" />

@@ -104,6 +104,9 @@ namespace Options
 		std::string strClantag = "";
 		bool bClantagScroll = false;
 
+		bool bNameChanger = false;
+		std::string strName = "";
+
 		bool bBhopEnabled = false;
 		bool bShowRanks = true;
 		bool bAutoAccept = false;

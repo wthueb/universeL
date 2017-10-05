@@ -5,4 +5,5 @@
 #include "Bhop.h"
 #include "ClantagChanger.h"
 #include "ESP.h"
+#include "NameChanger.h"
 #include "SkinChanger.h"
