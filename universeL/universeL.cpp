@@ -14,7 +14,7 @@ void Unload(HMODULE hModule)
 	// means that every thread can't sleep for more then 5 seconds
 	Sleep(5000);
 
-	FreeLibraryAndExitThread(hModule, 0);
+	FreeLibraryAndExitThread(hModule, 1);
 
 	ExitThread(0);
 }

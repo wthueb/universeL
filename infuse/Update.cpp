@@ -52,6 +52,7 @@ bool GetLatestVersion(CURL* &curl, std::string &latestversion)
 	curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
 	curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, WriteDataString);
 	curl_easy_setopt(curl, CURLOPT_WRITEDATA, &latestversion);
+	curl_easy_setopt(curl, CURLOPT_TIMEOUT, 5);
 
 	CURLcode result = curl_easy_perform(curl);
 
