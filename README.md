@@ -1,9 +1,7 @@
 universeL
 =========
 
-made by wi1
-
-btc: 1Ka3urajw5bCfFVzgSgHaRLsYWBdC6mGnj
+rewrite: https://github.com/wthueb/unLimited
 
 infuse accesses the internet to get the latest version of the cheat. you can compile from source and use a different injector if you'd like
 
